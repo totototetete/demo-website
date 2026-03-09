@@ -2,7 +2,7 @@
 
 ## 概要
 
-HEnDA Friendsは、一般社団法人全国高校英語ディベート連盟（HEnDA）の公式支援プラットフォームです。Next.js 14（App Router）を使用して構築されており、高校英語ディベートに関わるすべての人々（現役生、コーチ、OB・OG、サポーター）のための情報を提供します。
+これは、一般社団法人全国高校英語ディベート連盟（HEnDA）の公式支援プラットフォームです。Next.js 14（App Router）を使用して構築されており、高校英語ディベートに関わるすべての人々（現役生、コーチ、OB・OG、サポーター）のための情報を提供します。
 
 ## 主な機能
 
@@ -56,49 +56,6 @@ demo-website/
 ├── next.config.ts          # Next.js設定
 ├── postcss.config.mjs      # PostCSS設定
 └── package.json            # 依存関係管理
-```
-
-## セットアップ手順
-
-### 前提条件
-
-- Node.js 18.17.0 以上
-- npm 9.0.0 以上 または yarn
-
-### インストール
-
-1. リポジトリをクローン
-
-```bash
-git clone https://github.com/<YOUR_USERNAME>/demo-website.git
-cd demo-website
-```
-
-2. 依存関係のインストール
-
-```bash
-npm install
-```
-
-3. 開発サーバーの起動
-
-```bash
-npm run dev
-```
-
-4. ブラウザで http://localhost:3000 を開く
-
-### ビルド
-
-```bash
-npm run build
-npm run start
-```
-
-### リント
-
-```bash
-npm run lint
 ```
 
 ## 開発ガイド

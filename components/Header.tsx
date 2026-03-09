@@ -10,6 +10,7 @@ import {
   Menu,
   X,
   Calendar,
+  LayoutDashboard,
   MessageSquare,
   Users,
   BookOpen,
@@ -33,7 +34,7 @@ export default function Header() {
     { label: t.nav.beginners, icon: <BookOpen size={16} aria-hidden="true" /> },
     { label: t.nav.support, icon: <Users size={16} aria-hidden="true" /> },
     { label: t.nav.rules, icon: <Calendar size={16} aria-hidden="true" /> },
-    { label: t.nav.dashboard, icon: <Calendar size={16} aria-hidden="true" /> },
+    { label: t.nav.dashboard, icon: <LayoutDashboard size={16} aria-hidden="true" /> },
     { label: t.nav.matching, icon: <MessageSquare size={16} aria-hidden="true" /> },
     { label: t.nav.alumni, icon: <Users size={16} aria-hidden="true" /> },
   ];

@@ -1,27 +1,26 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { NEWS_DATA } from '@/lib/constants/newsData';
 
 // ニュースセクションコンポーネント（フィルタリング機能付き）
 export default function NewsSection() {
   const { lang, t } = useLanguage();
-  const [activeTab, setActiveTab] = useState<string>(t.newsCats[0]);
+  // 言語に依存しないインデックスでタブを管理（言語切り替え時の不整合を防ぐ）
+  const [activeTabIndex, setActiveTabIndex] = useState<number>(0);
 
-  // 言語変更時にアクティブタブをリセット
-  useEffect(() => {
-    setActiveTab(t.newsCats[0]);
-  }, [lang, t.newsCats]);
+  // 現在のアクティブカテゴリ名（言語に対応）
+  const activeTab = t.newsCats[activeTabIndex] ?? t.newsCats[0];
 
   // フィルタリングされたニュースデータ（メモ化）
   const filteredNews = useMemo(() => {
-    const allLabel = lang === 'ja' ? 'すべて' : 'All';
-    if (activeTab === allLabel) {
+    // インデックス0は「すべて/All」（全件表示）
+    if (activeTabIndex === 0) {
       return NEWS_DATA;
     }
     return NEWS_DATA.filter((news) => news.category[lang] === activeTab);
-  }, [activeTab, lang]);
+  }, [activeTabIndex, activeTab, lang]);
 
   return (
     <section className="py-12" aria-label="ニュース">
@@ -37,14 +36,14 @@ export default function NewsSection() {
         {/* カテゴリタブ */}
         <div className="mb-8 border-b border-gray-200 overflow-x-auto">
           <ul className="flex gap-4 pb-px min-w-max" role="tablist" aria-label="ニュースカテゴリ">
-            {t.newsCats.map((cat) => (
+            {t.newsCats.map((cat, index) => (
               <li key={cat} role="presentation">
                 <button
-                  onClick={() => setActiveTab(cat)}
+                  onClick={() => setActiveTabIndex(index)}
                   role="tab"
-                  aria-selected={activeTab === cat}
+                  aria-selected={activeTabIndex === index}
                   className={`whitespace-nowrap pb-4 px-2 text-sm font-bold transition-all ${
-                    activeTab === cat
+                    activeTabIndex === index
                       ? 'border-b-4 border-amber-500 text-blue-900'
                       : 'text-gray-400 hover:text-blue-600'
                   }`}

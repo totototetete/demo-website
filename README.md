@@ -70,7 +70,7 @@ demo-website/
 1. リポジトリをクローン
 
 ```bash
-git clone https://github.com/totototetete/demo-website.git
+git clone https://github.com/<YOUR_USERNAME>/demo-website.git
 cd demo-website
 ```
 

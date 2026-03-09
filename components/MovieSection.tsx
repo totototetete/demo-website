@@ -64,7 +64,7 @@ export default function MovieSection() {
                 role="button"
                 tabIndex={0}
                 aria-label={m.title}
-                onKeyDown={(e) => e.key === 'Enter' && console.log(`Play: ${m.title}`)}
+                onKeyDown={(e) => { if (e.key === 'Enter') { /* 動画再生処理をここに追加 */ } }}
               >
                 <div className="relative aspect-video w-32 shrink-0 overflow-hidden rounded bg-slate-800">
                   {/* eslint-disable-next-line @next/next/no-img-element */}

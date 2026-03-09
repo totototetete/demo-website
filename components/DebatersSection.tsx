@@ -1,0 +1,65 @@
+'use client';
+
+import { MessageSquare, Calendar, Users, BookOpen, ChevronRight, Trophy } from 'lucide-react';
+import { useLanguage } from '@/hooks/useLanguage';
+
+// アイコンリスト（インデックスで対応）
+const icons = [
+  <MessageSquare key="msg" size={28} aria-hidden="true" />,
+  <Calendar key="cal" size={28} aria-hidden="true" />,
+  <Users key="users" size={28} aria-hidden="true" />,
+  <BookOpen key="book" size={28} aria-hidden="true" />,
+];
+
+// 背景色クラスリスト
+const bgColors = ['bg-blue-600', 'bg-indigo-600', 'bg-slate-700', 'bg-blue-800'];
+
+// ディベーター向けセクションコンポーネント
+export default function DebatersSection() {
+  const { t } = useLanguage();
+
+  return (
+    <section className="bg-slate-50 py-16" aria-label="ディベーターの方へ">
+      <div className="mx-auto max-w-7xl px-4">
+        {/* セクションタイトル */}
+        <div className="mb-10 text-center flex flex-col items-center">
+          <h2 className="text-3xl font-black italic text-[#002b5b] flex items-center justify-center gap-2 uppercase tracking-tighter">
+            <Trophy className="text-amber-500" aria-hidden="true" />
+            {t.sections.forDebaters}
+          </h2>
+          <p className="text-xs font-bold text-slate-400 mt-2 uppercase tracking-widest">
+            {t.sections.debaterSub}
+          </p>
+        </div>
+
+        {/* コンテンツグリッド */}
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+          {t.items.debater.map((item, i) => (
+            <a
+              key={i}
+              href="#"
+              className="flex items-center gap-6 bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all group border border-slate-100"
+              aria-label={item.title}
+            >
+              <div
+                className={`flex h-14 w-14 items-center justify-center rounded-xl text-white shadow-lg ${bgColors[i % bgColors.length]}`}
+              >
+                {icons[i]}
+              </div>
+              <div className="flex flex-col justify-center">
+                <h3 className="text-lg font-black text-slate-800 group-hover:text-blue-600 transition-colors tracking-tight">
+                  {item.title}
+                </h3>
+                <p className="text-xs font-bold text-slate-500 mt-1">{item.desc}</p>
+              </div>
+              <ChevronRight
+                className="ml-auto text-slate-300 group-hover:text-amber-500 transition-colors"
+                aria-hidden="true"
+              />
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}

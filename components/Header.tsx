@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import {
   Search,
   Youtube,
@@ -20,6 +21,7 @@ import { useLanguage } from '@/hooks/useLanguage';
 export default function Header() {
   const { lang, t, toggleLang } = useLanguage();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const router = useRouter();
 
   // メニュー開閉トグル（メモ化）
   const toggleMenu = useCallback(() => {
@@ -46,8 +48,8 @@ export default function Header() {
             role="button"
             tabIndex={0}
             aria-label="ホームへ戻る"
-            onClick={() => window.location.reload()}
-            onKeyDown={(e) => e.key === 'Enter' && window.location.reload()}
+            onClick={() => router.push('/')}
+            onKeyDown={(e) => e.key === 'Enter' && router.push('/')}
           >
             <span className="text-xl font-black italic tracking-tighter text-[#002b5b]">
               HEnDA <span className="text-amber-500">Friends</span>

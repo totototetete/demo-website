@@ -67,8 +67,8 @@ export default function Header() {
             <Image
               src="/images/logo.svg"
               alt="HEnDA Friends"
-              width={51.2}
-              height={12.9}
+              width={25.6}
+              height={6.45}
               priority
               className="h-auto w-auto"
             />

@@ -18,7 +18,6 @@ import {
 } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
 
-// Xロゴコンポーネント
 const XLogo = ({ size = 18 }: { size?: number }) => (
   <svg
     viewBox="0 0 24 24"
@@ -68,8 +67,8 @@ export default function Header() {
             <Image
               src="/images/logo.svg"
               alt="HEnDA Friends"
-              width={50}
-              height={15}
+              width={51.2}
+              height={12.9}
               priority
               className="h-auto w-auto"
             />

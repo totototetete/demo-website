@@ -1,7 +1,21 @@
 'use client';
 
-import { Twitter, Youtube, Instagram } from 'lucide-react';
+import Image from 'next/image';
+import { Youtube, Instagram } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
+
+// Xロゴコンポーネント
+const XLogo = ({ size = 20 }: { size?: number }) => (
+  <svg
+    viewBox="0 0 24 24"
+    width={size}
+    height={size}
+    fill="currentColor"
+    aria-hidden="true"
+  >
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+  </svg>
+);
 
 // フッターコンポーネント
 export default function Footer() {
@@ -13,9 +27,13 @@ export default function Footer() {
         {/* ロゴ・SNSリンク */}
         <div className="mb-8 flex flex-col items-center gap-4">
           <div className="flex justify-center items-center gap-2">
-            <span className="text-2xl font-black italic tracking-tighter text-[#002b5b]">
-              HEnDA <span className="text-amber-500">Friends</span>
-            </span>
+            <Image
+              src="/images/logo.svg"
+              alt="HEnDA Friends"
+              width={100}
+              height={30}
+              className="h-auto w-auto"
+            />
           </div>
           <div className="flex gap-6 text-slate-400">
             <a
@@ -23,7 +41,7 @@ export default function Footer() {
               className="hover:text-blue-600 transition-colors"
               aria-label="X (Twitter)"
             >
-              <Twitter size={20} aria-hidden="true" />
+              <XLogo size={20} />
             </a>
             <a
               href="#"

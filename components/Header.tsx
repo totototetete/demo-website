@@ -67,10 +67,10 @@ export default function Header() {
             <Image
               src="/images/logo.svg"
               alt="HEnDA Friends"
-              width={25.6}
-              height={6.45}
+              width={512}
+              height={129}
               priority
-              className="h-auto w-auto"
+              className="w-[60px] h-auto"  // ← ここで実際の表示サイズを指定
             />
           </div>
           <h1 className="hidden text-[10px] font-bold leading-tight text-slate-200 lg:block max-w-[240px]">

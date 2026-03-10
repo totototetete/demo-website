@@ -1,11 +1,11 @@
 'use client';
 
 import { useCallback, useState } from 'react';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import {
   Search,
   Youtube,
-  Twitter,
   Instagram,
   Menu,
   X,
@@ -17,6 +17,7 @@ import {
   Globe,
 } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
+import XLogo from '@/components/XLogo';
 
 // ヘッダーコンポーネント
 export default function Header() {
@@ -52,9 +53,14 @@ export default function Header() {
             onClick={() => router.push('/')}
             onKeyDown={(e) => e.key === 'Enter' && router.push('/')}
           >
-            <span className="text-xl font-black italic tracking-tighter text-[#002b5b]">
-              HEnDA <span className="text-amber-500">Friends</span>
-            </span>
+            <Image
+              src="/images/logo.svg"
+              alt="HEnDA Friends"
+              width={75}
+              height={23}
+              priority
+              className="h-auto w-auto"
+            />
           </div>
           <h1 className="hidden text-[10px] font-bold leading-tight text-slate-200 lg:block max-w-[240px]">
             {t.siteTitle}
@@ -96,7 +102,7 @@ export default function Header() {
             className="flex flex-col items-center gap-0.5 hover:text-amber-400 transition-colors"
             aria-label="X (Twitter)"
           >
-            <Twitter size={18} aria-hidden="true" />
+            <XLogo />
             <span className="text-[10px] font-bold tracking-tight">X</span>
           </a>
           <a

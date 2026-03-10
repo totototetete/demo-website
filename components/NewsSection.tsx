@@ -1,8 +1,29 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
+import Image from 'next/image';
 import { useLanguage } from '@/hooks/useLanguage';
 import { NEWS_DATA } from '@/lib/constants/newsData';
+
+// 画像エラー時のフォールバックを持つ画像コンポーネント
+function NewsImage({ src, alt }: { src: string; alt: string }) {
+  const [imageSrc, setImageSrc] = useState(src || '/images/placeholder.jpg');
+
+  useEffect(() => {
+    setImageSrc(src || '/images/placeholder.jpg');
+  }, [src]);
+
+  return (
+    <Image
+      src={imageSrc}
+      alt={alt}
+      width={400}
+      height={225}
+      className="h-full w-full object-cover group-hover:scale-105 transition-transform"
+      onError={() => setImageSrc('/images/placeholder.jpg')}
+    />
+  );
+}
 
 // ニュースセクションコンポーネント（フィルタリング機能付き）
 export default function NewsSection() {
@@ -66,11 +87,9 @@ export default function NewsSection() {
                 aria-label={news.title[lang]}
               >
                 <div className="aspect-video w-full mb-3 overflow-hidden rounded bg-slate-200">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  <NewsImage
                     src={news.imageUrl}
                     alt={news.title[lang]}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                   />
                 </div>
                 <p className="mb-2 text-[10px] font-bold text-blue-600 uppercase tracking-tighter">

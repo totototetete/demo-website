@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { Heart } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
 
@@ -31,11 +32,12 @@ export default function FansSection() {
               aria-label={item.label}
             >
               <div className="relative overflow-hidden aspect-[4/3] bg-slate-200">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={`/api/placeholder/400/300`}
+                <Image
+                  src="/images/placeholder.jpg"
                   alt={item.label}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform"
+                  width={400}
+                  height={300}
+                  className="h-full w-full object-cover group-hover:scale-110 transition-transform"
                 />
                 <div
                   className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"

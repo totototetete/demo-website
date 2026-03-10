@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useLanguage } from '@/hooks/useLanguage';
 import { PICKUP_DATA } from '@/lib/constants/pickupData';
 
@@ -29,11 +30,12 @@ export default function PickupSection() {
               aria-label={item.title}
             >
               <div className="relative overflow-hidden aspect-video bg-slate-200">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={`/api/placeholder/600/400`}
+                <Image
+                  src="/images/placeholder.jpg"
                   alt={item.title}
-                  className="w-full h-full object-cover transition-transform group-hover:scale-110"
+                  width={600}
+                  height={400}
+                  className="h-full w-full object-cover transition-transform group-hover:scale-110"
                 />
                 <span className="absolute left-2 top-2 bg-amber-500 px-2 py-0.5 text-[10px] font-bold text-white uppercase z-10">
                   {item.label}

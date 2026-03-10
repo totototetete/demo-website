@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { Youtube, Play } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
 
@@ -37,11 +38,12 @@ export default function MovieSection() {
           {/* メイン動画 */}
           <div className="lg:col-span-2">
             <div className="relative aspect-video w-full overflow-hidden rounded-xl shadow-2xl group cursor-pointer bg-slate-800">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/api/placeholder/800/450"
+              <Image
+                src="/images/placeholder.jpg"
                 alt={mainVideoTitle}
-                className="w-full h-full object-cover transition-transform group-hover:scale-105"
+                width={800}
+                height={450}
+                className="h-full w-full object-cover transition-transform group-hover:scale-105"
               />
               <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/10 transition-colors">
                 <div className="rounded-full bg-amber-500 p-6 text-white shadow-lg scale-90 group-hover:scale-100 transition-transform">
@@ -67,11 +69,12 @@ export default function MovieSection() {
                 onKeyDown={(e) => { if (e.key === 'Enter') { /* 動画再生処理をここに追加 */ } }}
               >
                 <div className="relative aspect-video w-32 shrink-0 overflow-hidden rounded bg-slate-800">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="/api/placeholder/160/90"
+                  <Image
+                    src="/images/placeholder.jpg"
                     alt={m.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform"
+                    width={160}
+                    height={90}
+                    className="h-full w-full object-cover group-hover:scale-110 transition-transform"
                   />
                   <span className="absolute bottom-1 right-1 bg-black/80 px-1 text-[8px] font-bold rounded">
                     {m.time}

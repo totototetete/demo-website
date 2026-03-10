@@ -30,9 +30,9 @@ export default function Footer() {
             <Image
               src="/images/logo.svg"
               alt="HEnDA Friends"
-              width={100}
-              height={30}
-              className="h-auto w-auto"
+              width={512}
+              height={129}
+              className="w-[200px] h-auto"
             />
           </div>
           <div className="flex gap-6 text-slate-400">

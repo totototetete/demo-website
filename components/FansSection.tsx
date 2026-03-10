@@ -33,7 +33,7 @@ export default function FansSection() {
               <div className="relative overflow-hidden aspect-[4/3] bg-slate-200">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={`/api/placeholder/400/300`}
+                  src={`/images/placeholder.jpg`}
                   alt={item.label}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform"
                 />

@@ -2,10 +2,10 @@
 
 import { useCallback, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import {
   Search,
   Youtube,
-  Twitter,
   Instagram,
   Menu,
   X,
@@ -17,6 +17,19 @@ import {
   Globe,
 } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
+
+// Xロゴコンポーネント
+const XLogo = ({ size = 18 }: { size?: number }) => (
+  <svg
+    viewBox="0 0 24 24"
+    width={size}
+    height={size}
+    fill="currentColor"
+    aria-hidden="true"
+  >
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+  </svg>
+);
 
 // ヘッダーコンポーネント
 export default function Header() {
@@ -45,16 +58,21 @@ export default function Header() {
         {/* ロゴ・サイトタイトル */}
         <div className="flex items-center gap-4">
           <div
-            className="bg-white p-2 rounded shadow-inner cursor-pointer"
+            className="cursor-pointer"
             role="button"
             tabIndex={0}
             aria-label="ホームへ戻る"
             onClick={() => router.push('/')}
             onKeyDown={(e) => e.key === 'Enter' && router.push('/')}
           >
-            <span className="text-xl font-black italic tracking-tighter text-[#002b5b]">
-              HEnDA <span className="text-amber-500">Friends</span>
-            </span>
+            <Image
+              src="/images/logo.svg"
+              alt="HEnDA Friends"
+              width={50}
+              height={15}
+              priority
+              className="h-auto w-auto"
+            />
           </div>
           <h1 className="hidden text-[10px] font-bold leading-tight text-slate-200 lg:block max-w-[240px]">
             {t.siteTitle}
@@ -82,7 +100,7 @@ export default function Header() {
             <span className="text-[10px] font-bold tracking-tight">SEARCH</span>
           </button>
 
-          {/* SNSリンク */}
+          {/* YouTube */}
           <a
             href="#"
             className="flex flex-col items-center gap-0.5 hover:text-amber-400 transition-colors"
@@ -91,14 +109,18 @@ export default function Header() {
             <Youtube size={18} aria-hidden="true" />
             <span className="text-[10px] font-bold tracking-tight">YouTube</span>
           </a>
+
+          {/* X (Twitter) */}
           <a
             href="#"
             className="flex flex-col items-center gap-0.5 hover:text-amber-400 transition-colors"
             aria-label="X (Twitter)"
           >
-            <Twitter size={18} aria-hidden="true" />
+            <XLogo size={18} />
             <span className="text-[10px] font-bold tracking-tight">X</span>
           </a>
+
+          {/* Instagram */}
           <a
             href="#"
             className="flex flex-col items-center gap-0.5 hover:text-amber-400 transition-colors"

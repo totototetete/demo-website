@@ -39,7 +39,7 @@ export default function MovieSection() {
             <div className="relative aspect-video w-full overflow-hidden rounded-xl shadow-2xl group cursor-pointer bg-slate-800">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/api/placeholder/800/450"
+                src="/images/placeholder.jpg"
                 alt={mainVideoTitle}
                 className="w-full h-full object-cover transition-transform group-hover:scale-105"
               />
@@ -69,7 +69,7 @@ export default function MovieSection() {
                 <div className="relative aspect-video w-32 shrink-0 overflow-hidden rounded bg-slate-800">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src="/api/placeholder/160/90"
+                    src="/images/placeholder.jpg"
                     alt={m.title}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform"
                   />

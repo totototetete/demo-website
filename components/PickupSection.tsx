@@ -31,7 +31,7 @@ export default function PickupSection() {
               <div className="relative overflow-hidden aspect-video bg-slate-200">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={`/api/placeholder/600/400`}
+                  src={`/images/placeholder.jpg`}
                   alt={item.title}
                   className="w-full h-full object-cover transition-transform group-hover:scale-110"
                 />

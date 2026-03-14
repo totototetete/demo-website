@@ -70,7 +70,7 @@ export default function Header() {
               width={512}
               height={129}
               priority
-              className="w-[120px] h-auto"
+              className="w-[180px] h-auto"
             />
           </div>
           <h1 className="hidden text-[10px] font-bold leading-tight text-slate-200 lg:block max-w-[240px]">

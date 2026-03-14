@@ -70,8 +70,8 @@ const HERO_SLIDES: HeroSlide[] = [
 ];
 
 const PLACEHOLDER_IMAGE = '/images/placeholder.jpg';
-// 縦横比 1680:1040 = 61.905...%
-const HERO_ASPECT_RATIO = `${(1040 / 1680) * 100}%`;
+// 縦横比 1680:1040 = 61.905...vw、高さ上限 500px
+const HERO_HEIGHT_STYLE = { height: `min(${(1040 / 1680) * 100}vw, 500px)` } as const;
 
 // ヒーロースライダーコンポーネント
 export default function HeroSlider() {
@@ -119,8 +119,8 @@ export default function HeroSlider() {
                 className="flex-shrink-0 w-full px-0 md:px-8 lg:px-16"
                 aria-hidden={index !== currentSlide}
               >
-                {/* 縦横比 1680:1040 ≈ 61.9% */}
-                <div className="relative w-full" style={{ paddingBottom: HERO_ASPECT_RATIO }}>
+                {/* 縦横比 1680:1040 ≈ 61.9vw、高さ上限 500px */}
+                <div className="relative w-full" style={HERO_HEIGHT_STYLE}>
                   <div className="absolute inset-0">
                     <Image
                       src={imageErrors[slide.id] ? PLACEHOLDER_IMAGE : slide.image[lang]}

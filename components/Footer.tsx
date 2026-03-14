@@ -32,7 +32,7 @@ export default function Footer() {
               alt="HEnDA Friends"
               width={512}
               height={129}
-              className="w-[120px] h-auto"
+              className="w-[240px] h-auto"
             />
           </div>
           <div className="flex gap-6 text-slate-400">

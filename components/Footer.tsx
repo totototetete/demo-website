@@ -28,30 +28,36 @@ export default function Footer() {
         <div className="mb-8 flex flex-col items-center gap-4">
           <div className="flex justify-center items-center gap-2">
             <Image
-              src="/images/logo.svg"
+              src="/images/logo-light.svg"
               alt="HEnDA Friends"
               width={512}
               height={129}
-              className="w-[200px] h-auto"
+              className="w-[120px] h-auto"
             />
           </div>
           <div className="flex gap-6 text-slate-400">
             <a
-              href="#"
+              href="https://twitter.com/henda_official"
+              target="_blank"
+              rel="noopener noreferrer"
               className="hover:text-blue-600 transition-colors"
               aria-label="X (Twitter)"
             >
               <XLogo size={20} />
             </a>
             <a
-              href="#"
+              href="https://www.youtube.com/@henda_official"
+              target="_blank"
+              rel="noopener noreferrer"
               className="hover:text-red-600 transition-colors"
               aria-label="YouTube"
             >
               <Youtube size={20} aria-hidden="true" />
             </a>
             <a
-              href="#"
+              href="https://www.instagram.com/henda_official"
+              target="_blank"
+              rel="noopener noreferrer"
               className="hover:text-pink-600 transition-colors"
               aria-label="Instagram"
             >

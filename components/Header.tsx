@@ -65,12 +65,12 @@ export default function Header() {
             onKeyDown={(e) => e.key === 'Enter' && router.push('/')}
           >
             <Image
-              src="/images/logo.svg"
+              src="/images/logo-dark.svg"
               alt="HEnDA Friends"
               width={512}
               height={129}
               priority
-              className="w-[160px] h-auto"
+              className="w-[60px] h-auto"
             />
           </div>
           <h1 className="hidden text-[10px] font-bold leading-tight text-slate-200 lg:block max-w-[240px]">
@@ -101,8 +101,10 @@ export default function Header() {
 
           {/* YouTube */}
           <a
-            href="#"
-            className="flex flex-col items-center gap-0.5 hover:text-amber-400 transition-colors"
+            href="https://www.youtube.com/@henda_official"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden md:flex flex-col items-center gap-0.5 hover:text-amber-400 transition-colors"
             aria-label="YouTube"
           >
             <Youtube size={18} aria-hidden="true" />
@@ -111,8 +113,10 @@ export default function Header() {
 
           {/* X (Twitter) */}
           <a
-            href="#"
-            className="flex flex-col items-center gap-0.5 hover:text-amber-400 transition-colors"
+            href="https://twitter.com/henda_official"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden md:flex flex-col items-center gap-0.5 hover:text-amber-400 transition-colors"
             aria-label="X (Twitter)"
           >
             <XLogo size={18} />
@@ -121,8 +125,10 @@ export default function Header() {
 
           {/* Instagram */}
           <a
-            href="#"
-            className="flex flex-col items-center gap-0.5 hover:text-amber-400 transition-colors"
+            href="https://www.instagram.com/henda_official"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden md:flex flex-col items-center gap-0.5 hover:text-amber-400 transition-colors"
             aria-label="Instagram"
           >
             <Instagram size={18} aria-hidden="true" />

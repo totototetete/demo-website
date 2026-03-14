@@ -78,9 +78,9 @@ const MAX_HERO_HEIGHT_PX = 500;
 const PEEK_VW = 8;
 // 各スライドの幅（ビューポート幅に対する %）
 const SLIDE_WIDTH_PCT = 100 - PEEK_VW * 2;
-// 縦横比を維持しつつ高さ上限を設ける
+// 縦横比を維持しつつ高さ上限を設ける（スライド幅 SLIDE_WIDTH_PCT vw を基準にアスペクト比を計算）
 const HERO_HEIGHT_STYLE = {
-  height: `min(${(HERO_IMAGE_HEIGHT / HERO_IMAGE_WIDTH) * 100}vw, ${MAX_HERO_HEIGHT_PX}px)`,
+  height: `min(${(HERO_IMAGE_HEIGHT / HERO_IMAGE_WIDTH) * SLIDE_WIDTH_PCT}vw, ${MAX_HERO_HEIGHT_PX}px)`,
 } as const;
 
 // ヒーロースライダーコンポーネント
@@ -136,7 +136,7 @@ export default function HeroSlider() {
                     src={imageErrors[slide.id] ? PLACEHOLDER_IMAGE : slide.image[lang]}
                     alt={slide.title[lang]}
                     fill
-                    className={`object-cover rounded-lg transition-opacity duration-500 ${
+                    className={`object-contain rounded-lg transition-opacity duration-500 ${
                       index !== currentSlide ? 'opacity-50' : 'opacity-100'
                     }`}
                     priority={index === 0}

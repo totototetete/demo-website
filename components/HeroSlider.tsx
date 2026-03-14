@@ -70,8 +70,18 @@ const HERO_SLIDES: HeroSlide[] = [
 ];
 
 const PLACEHOLDER_IMAGE = '/images/placeholder.jpg';
-// 縦横比 1680:1040 = 61.905...%
-const HERO_ASPECT_RATIO = `${(1040 / 1680) * 100}%`;
+// ヒーロー画像の原寸（アスペクト比計算に使用）
+const HERO_IMAGE_WIDTH = 1680;
+const HERO_IMAGE_HEIGHT = 1040;
+const MAX_HERO_HEIGHT_PX = 500;
+// 両端に見えるピーク量（ビューポート幅に対する %）
+const PEEK_VW = 8;
+// 各スライドの幅（ビューポート幅に対する %）
+const SLIDE_WIDTH_PCT = 100 - PEEK_VW * 2;
+// 縦横比を維持しつつ高さ上限を設ける（スライド幅 SLIDE_WIDTH_PCT vw を基準にアスペクト比を計算）
+const HERO_HEIGHT_STYLE = {
+  height: `min(${(HERO_IMAGE_HEIGHT / HERO_IMAGE_WIDTH) * SLIDE_WIDTH_PCT}vw, ${MAX_HERO_HEIGHT_PX}px)`,
+} as const;
 
 // ヒーロースライダーコンポーネント
 export default function HeroSlider() {
@@ -106,47 +116,52 @@ export default function HeroSlider() {
     <section className="relative w-full bg-slate-900 overflow-hidden" aria-label="ヒーローセクション">
       {/* スライドコンテナ */}
       <div className="relative">
-        <div className="w-full overflow-hidden">
-          <div
-            className="flex transition-transform duration-500 ease-out"
-            style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-            role="region"
-            aria-live="polite"
-          >
-            {HERO_SLIDES.map((slide, index) => (
-              <div
-                key={slide.id}
-                className="flex-shrink-0 w-full px-0 md:px-8 lg:px-16"
-                aria-hidden={index !== currentSlide}
-              >
-                {/* 縦横比 1680:1040 ≈ 61.9% */}
-                <div className="relative w-full" style={{ paddingBottom: HERO_ASPECT_RATIO }}>
-                  <div className="absolute inset-0">
-                    <Image
-                      src={imageErrors[slide.id] ? PLACEHOLDER_IMAGE : slide.image[lang]}
-                      alt={slide.title[lang]}
-                      fill
-                      className="object-cover rounded-none md:rounded-lg"
-                      priority={index === 0}
-                      onError={() => handleImageError(slide.id)}
-                    />
-                    {/* オーバーレイ */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent rounded-none md:rounded-lg" />
+        {/* スライドトラック（両端に隣接スライドをちらりと表示） */}
+        <div
+          className="flex transition-transform duration-500 ease-out"
+          style={{ transform: `translateX(${PEEK_VW - currentSlide * SLIDE_WIDTH_PCT}%)` }}
+          role="region"
+          aria-live="polite"
+        >
+          {HERO_SLIDES.map((slide, index) => (
+            <div
+              key={slide.id}
+              className="flex-shrink-0 px-2"
+              style={{ width: `${SLIDE_WIDTH_PCT}%` }}
+              aria-hidden={index !== currentSlide}
+            >
+              <div className="relative w-full" style={HERO_HEIGHT_STYLE}>
+                <div className="absolute inset-0">
+                  <Image
+                    src={imageErrors[slide.id] ? PLACEHOLDER_IMAGE : slide.image[lang]}
+                    alt={slide.title[lang]}
+                    fill
+                    className={`object-contain rounded-lg transition-opacity duration-500 ${
+                      index !== currentSlide ? 'opacity-50' : 'opacity-100'
+                    }`}
+                    priority={index === 0}
+                    onError={() => handleImageError(slide.id)}
+                  />
+                  {/* オーバーレイ（アクティブスライドのみ） */}
+                  <div className={`absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent rounded-lg transition-opacity duration-500 ${
+                    index !== currentSlide ? 'opacity-0' : 'opacity-100'
+                  }`} />
 
-                    {/* テキストコンテンツ */}
-                    <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10 lg:p-16 text-white">
-                      <h2 className="text-2xl md:text-4xl lg:text-5xl font-black mb-3 md:mb-4 drop-shadow-lg">
-                        {slide.title[lang]}
-                      </h2>
-                      <p className="text-sm md:text-lg lg:text-xl font-bold drop-shadow-md">
-                        {slide.subtitle[lang]}
-                      </p>
-                    </div>
+                  {/* テキストコンテンツ（アクティブスライドのみ） */}
+                  <div className={`absolute bottom-0 left-0 right-0 p-6 md:p-10 lg:p-16 text-white transition-opacity duration-500 ${
+                    index !== currentSlide ? 'opacity-0' : 'opacity-100'
+                  }`}>
+                    <h2 className="text-2xl md:text-4xl lg:text-5xl font-black mb-3 md:mb-4 drop-shadow-lg">
+                      {slide.title[lang]}
+                    </h2>
+                    <p className="text-sm md:text-lg lg:text-xl font-bold drop-shadow-md">
+                      {slide.subtitle[lang]}
+                    </p>
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
 
         {/* 前へボタン */}

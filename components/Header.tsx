@@ -101,7 +101,7 @@ export default function Header() {
 
           {/* YouTube */}
           <a
-            href="https://www.youtube.com/@henda_official"
+            href="https://www.youtube.com/@WIP"
             target="_blank"
             rel="noopener noreferrer"
             className="hidden md:flex flex-col items-center gap-0.5 hover:text-amber-400 transition-colors"
@@ -113,7 +113,7 @@ export default function Header() {
 
           {/* X (Twitter) */}
           <a
-            href="https://twitter.com/henda_official"
+            href="https://twitter.com/hendafriends"
             target="_blank"
             rel="noopener noreferrer"
             className="hidden md:flex flex-col items-center gap-0.5 hover:text-amber-400 transition-colors"
@@ -125,7 +125,7 @@ export default function Header() {
 
           {/* Instagram */}
           <a
-            href="https://www.instagram.com/henda_official"
+            href="https://www.instagram.com/hendafriends"
             target="_blank"
             rel="noopener noreferrer"
             className="hidden md:flex flex-col items-center gap-0.5 hover:text-amber-400 transition-colors"

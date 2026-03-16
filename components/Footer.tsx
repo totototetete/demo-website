@@ -37,7 +37,7 @@ export default function Footer() {
           </div>
           <div className="flex gap-6 text-slate-400">
             <a
-              href="https://twitter.com/henda_official"
+              href="https://twitter.com/hendafriends"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-blue-600 transition-colors"
@@ -46,7 +46,7 @@ export default function Footer() {
               <XLogo size={20} />
             </a>
             <a
-              href="https://www.youtube.com/@henda_official"
+              href="https://www.youtube.com/@WIP"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-red-600 transition-colors"
@@ -55,7 +55,7 @@ export default function Footer() {
               <Youtube size={20} aria-hidden="true" />
             </a>
             <a
-              href="https://www.instagram.com/henda_official"
+              href="https://www.instagram.com/hendafriends"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-pink-600 transition-colors"

@@ -77,10 +77,15 @@ const MAX_HERO_HEIGHT_PX = 500;
 // 高さの上限から計算される最大幅
 const MAX_HERO_WIDTH_PX = Math.floor(MAX_HERO_HEIGHT_PX * (HERO_IMAGE_WIDTH / HERO_IMAGE_HEIGHT));
 
-// 両端に見えるピーク量（ビューポート幅に対する %）
-const PEEK_VW = 8;
-// 各スライドの幅（ビューポート幅に対する %）
-const SLIDE_WIDTH_PCT = 100 - PEEK_VW * 2;
+// 余白の比率（メイン画像の幅の20%）
+const PEEK_RATIO = 0.2;
+// 1つのスライドコンテナ（画像 + 片側の余白）が占める幅の割合を計算
+// 画像を100%としたとき、1つのスライドが占める領域は 100% + 20%(片側余白) = 120%
+// スライド幅は画面幅の100%に対して、(100 / 1.2) % となる
+const SLIDE_WIDTH_PCT = 100 / (1 + PEEK_RATIO);
+// スライドを中央に配置するための初期オフセット（画面幅の半分から、スライド幅の半分を引いた位置）
+const INITIAL_OFFSET_PCT = 50 - (SLIDE_WIDTH_PCT / 2);
+
 // 縦横比を維持しつつ高さ上限を設ける
 const HERO_HEIGHT_STYLE = {
   height: `min(${(HERO_IMAGE_HEIGHT / HERO_IMAGE_WIDTH) * SLIDE_WIDTH_PCT}vw, ${MAX_HERO_HEIGHT_PX}px)`,
@@ -122,14 +127,14 @@ export default function HeroSlider() {
         {/* スライドトラック（両端に隣接スライドをちらりと表示） */}
         <div
           className="flex transition-transform duration-500 ease-out"
-          style={{ transform: `translateX(${PEEK_VW - currentSlide * SLIDE_WIDTH_PCT}%)` }}
+          style={{ transform: `translateX(${INITIAL_OFFSET_PCT - currentSlide * SLIDE_WIDTH_PCT}%)` }}
           role="region"
           aria-live="polite"
         >
           {HERO_SLIDES.map((slide, index) => (
             <div
               key={slide.id}
-              className="flex-shrink-0 px-2 flex justify-center"
+              className="flex-shrink-0 flex justify-center"
               style={{ width: `${SLIDE_WIDTH_PCT}%` }}
               aria-hidden={index !== currentSlide}
             >
@@ -160,7 +165,7 @@ export default function HeroSlider() {
                   {/* テキストコンテンツ（アクティブスライドのみ） */}
                   <div className={`absolute bottom-0 left-0 right-0 p-6 md:p-10 lg:p-16 text-white transition-opacity duration-500 ${
                     index !== currentSlide ? 'opacity-0' : 'opacity-100'
-                  }`}>
+                  }`}> 
                     <h2 className="text-2xl md:text-4xl lg:text-5xl font-black mb-3 md:mb-4 drop-shadow-lg">
                       {slide.title[lang]}
                     </h2>

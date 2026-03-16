@@ -74,11 +74,14 @@ const PLACEHOLDER_IMAGE = '/images/placeholder.jpg';
 const HERO_IMAGE_WIDTH = 1680;
 const HERO_IMAGE_HEIGHT = 1040;
 const MAX_HERO_HEIGHT_PX = 500;
+// 高さの上限から計算される最大幅
+const MAX_HERO_WIDTH_PX = Math.floor(MAX_HERO_HEIGHT_PX * (HERO_IMAGE_WIDTH / HERO_IMAGE_HEIGHT));
+
 // 両端に見えるピーク量（ビューポート幅に対する %）
 const PEEK_VW = 8;
 // 各スライドの幅（ビューポート幅に対する %）
 const SLIDE_WIDTH_PCT = 100 - PEEK_VW * 2;
-// 縦横比を維持しつつ高さ上限を設ける（スライド幅 SLIDE_WIDTH_PCT vw を基準にアスペクト比を計算）
+// 縦横比を維持しつつ高さ上限を設ける
 const HERO_HEIGHT_STYLE = {
   height: `min(${(HERO_IMAGE_HEIGHT / HERO_IMAGE_WIDTH) * SLIDE_WIDTH_PCT}vw, ${MAX_HERO_HEIGHT_PX}px)`,
 } as const;
@@ -126,24 +129,31 @@ export default function HeroSlider() {
           {HERO_SLIDES.map((slide, index) => (
             <div
               key={slide.id}
-              className="flex-shrink-0 px-2"
+              className="flex-shrink-0 px-2 flex justify-center"
               style={{ width: `${SLIDE_WIDTH_PCT}%` }}
               aria-hidden={index !== currentSlide}
             >
-              <div className="relative w-full" style={HERO_HEIGHT_STYLE}>
+              {/* 画像の最大幅に合わせてコンテナの幅を制限し、中央配置する */}
+              <div 
+                className="relative w-full overflow-hidden rounded-lg" 
+                style={{ 
+                  ...HERO_HEIGHT_STYLE,
+                  maxWidth: `${MAX_HERO_WIDTH_PX}px`
+                }}
+              >
                 <div className="absolute inset-0">
                   <Image
                     src={imageErrors[slide.id] ? PLACEHOLDER_IMAGE : slide.image[lang]}
                     alt={slide.title[lang]}
                     fill
-                    className={`object-contain rounded-lg transition-opacity duration-500 ${
+                    className={`object-cover transition-opacity duration-500 ${
                       index !== currentSlide ? 'opacity-50' : 'opacity-100'
                     }`}
                     priority={index === 0}
                     onError={() => handleImageError(slide.id)}
                   />
                   {/* オーバーレイ（アクティブスライドのみ） */}
-                  <div className={`absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent rounded-lg transition-opacity duration-500 ${
+                  <div className={`absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent transition-opacity duration-500 ${
                     index !== currentSlide ? 'opacity-0' : 'opacity-100'
                   }`} />
 

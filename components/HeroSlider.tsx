@@ -77,7 +77,13 @@ const HERO_ASPECT_H_OVER_W = 1040 / 1680;
 const MAX_HERO_HEIGHT_PX = 500;
 // 高さ上限に対応する最大幅: floor(500 * (1680/1040)) ≈ 807px
 const MAX_HERO_WIDTH_PX = Math.floor(MAX_HERO_HEIGHT_PX / HERO_ASPECT_H_OVER_W);
-// 両脇への映り込みを表示し始めるビューポート幅の閾値: 1.4 × MAX_HERO_WIDTH_PX ≈ 1130px
+// スライド間のギャップ: 表示画像幅の 20%（0.2X）
+const PEEK_GAP_PX = MAX_HERO_WIDTH_PX * 0.2;
+// 高さ / 幅 の比率をパーセンテージで表した値（imageContainerHeight の vw 計算に使用）
+const HERO_ASPECT_VW_PCT = HERO_ASPECT_H_OVER_W * 100;
+// 両脇への映り込みを表示し始めるビューポート幅の閾値
+// アクティブ画像を中央配置したとき隣画像の右端がビューポート左端に到達する幅 = 1.4X
+//   50vw - X/2 - 0.2X(gap) - X = 0  →  V = 1.4X
 const PEEK_THRESHOLD_PX = Math.ceil(MAX_HERO_WIDTH_PX * 1.4);
 
 // ヒーロースライダーコンポーネント
@@ -122,29 +128,32 @@ export default function HeroSlider() {
 
   // --- レイアウト計算 ---
   //
-  // [非ピークモード] ビューポート幅 < PEEK_THRESHOLD_PX
-  //   - 各スライドの幅: 100vw
-  //   - 映り込みなし（スマホ・中間サイズ共通）
+  // [非ピークモード] ビューポート幅 < PEEK_THRESHOLD_PX (1.4X ≈ 1130px)
+  //   - 各スライドの幅: 100vw、映り込みなし、gap なし
   //   - translateX: -currentSlide × 100vw
   //
   // [ピークモード] ビューポート幅 >= PEEK_THRESHOLD_PX
-  //   - 各スライドの幅: MAX_HERO_WIDTH_PX px（固定）
+  //   - 各スライドの幅: X px (= MAX_HERO_WIDTH_PX ≈ 807px)
+  //   - スライド間のギャップ: 0.2X px (= PEEK_GAP_PX ≈ 161px) ← CSS flex gap
   //   - アクティブスライドをビューポート中央に配置
-  //   - translateX: 50vw - (MAX_HERO_WIDTH_PX / 2)px - currentSlide × MAX_HERO_WIDTH_PX px
-  //   - 隣接スライドが自然に左右から映り込む
+  //   - translateX: 50vw - X/2 - currentSlide × (X + 0.2X)
+  //              = 50vw - X/2 - currentSlide × 1.2X
+  //   - 隣接スライドはギャップを挟んで左右から映り込む
   //
   // 画像コンテナの高さ: min(HERO_ASPECT_H_OVER_W × 100vw, MAX_HERO_HEIGHT_PX)
   //   - ≤807px 時: アスペクト比に比例（高さは500px未満）
   //   - ≥807px 時: 500px に固定（クランプ）
 
+  const PEEK_STEP_PX = MAX_HERO_WIDTH_PX + PEEK_GAP_PX; // 1スライド進むときの移動量 (1.2X)
+
   const trackTransform = peekMode
-    ? `translateX(calc(50vw - ${MAX_HERO_WIDTH_PX / 2}px - ${currentSlide * MAX_HERO_WIDTH_PX}px))`
+    ? `translateX(calc(50vw - ${MAX_HERO_WIDTH_PX / 2}px - ${currentSlide * PEEK_STEP_PX}px))`
     : `translateX(-${currentSlide * 100}vw)`;
 
   const slideWidth = peekMode ? `${MAX_HERO_WIDTH_PX}px` : '100vw';
 
   // 画像コンテナの高さ（アスペクト比を維持しつつ最大500px）
-  const imageContainerHeight = `min(${HERO_ASPECT_H_OVER_W * 100}vw, ${MAX_HERO_HEIGHT_PX}px)`;
+  const imageContainerHeight = `min(${HERO_ASPECT_VW_PCT}vw, ${MAX_HERO_HEIGHT_PX}px)`;
 
   // ナビボタンの水平位置:
   //   ピークモード: 画像の左右端より内側に配置
@@ -162,7 +171,10 @@ export default function HeroSlider() {
         {/* スライドトラック */}
         <div
           className="flex transition-transform duration-500 ease-out"
-          style={{ transform: trackTransform }}
+          style={{
+            transform: trackTransform,
+            ...(peekMode ? { gap: `${PEEK_GAP_PX}px` } : {}),
+          }}
           role="region"
           aria-live="polite"
         >

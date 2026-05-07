@@ -55,6 +55,40 @@ export const dict: Record<'ja' | 'en', Dict> = {
         { title: 'OB・OGからのメッセージ', time: '08:45' },
         { title: 'モデルディベート実演（肯定側）', time: '45:10' }
       ]
+    },
+    dashboard: {
+      title: '大会ダッシュボード',
+      subtitle: '全国大会と地区大会の進行状況をまとめて確認できます。',
+      statsTitle: '本日のサマリー',
+      scheduleTitle: '直近スケジュール',
+      noticesTitle: '運営からのお知らせ',
+      linksTitle: '関連リンク',
+      stats: [
+        { label: '開催予定大会', value: '12', note: '今月開催予定' },
+        { label: 'エントリー校数', value: '184', note: '全国合計' },
+        { label: '確定ジャッジ', value: '96', note: '配置確定済み' }
+      ],
+      schedule: [
+        { round: '春季全国予選', date: '2026-05-18', venue: 'オンライン', status: '受付中' },
+        { round: '関東ブロック大会', date: '2026-05-25', venue: '早稲田大学', status: '組合せ公開' },
+        { round: '全国大会 決勝', date: '2026-06-15', venue: '東京国際フォーラム', status: '準備中' }
+      ],
+      scheduleHeaders: {
+        round: '大会',
+        date: '日程',
+        venue: '会場',
+        status: 'ステータス'
+      },
+      notices: [
+        '全国大会の参加校向けガイドライン（2026年度版）を公開しました。',
+        '地区大会のジャッジ希望登録は各開催日の7日前までに完了してください。',
+        '進行遅延時の連絡は大会当日チャネルをご確認ください。'
+      ],
+      links: [
+        { label: '大会要項・ルール', desc: '最新の大会要項と競技ルールを確認できます。' },
+        { label: '出場枠一覧', desc: '地区ごとの出場枠と推薦枠の内訳を掲載しています。' },
+        { label: 'マッチング掲示板', desc: '練習試合と調整依頼をまとめて管理できます。' }
+      ]
     }
   },
   en: {
@@ -109,6 +143,40 @@ export const dict: Record<'ja' | 'en', Dict> = {
         { title: 'Judge Guide: POI Criteria', time: '15:20' },
         { title: 'Messages from Alumni', time: '08:45' },
         { title: 'Model Debate Demo (Aff)', time: '45:10' }
+      ]
+    },
+    dashboard: {
+      title: 'Tournament Dashboard',
+      subtitle: 'Track national and regional tournament progress in one place.',
+      statsTitle: 'Today’s Summary',
+      scheduleTitle: 'Upcoming Schedule',
+      noticesTitle: 'Operations Updates',
+      linksTitle: 'Quick Links',
+      stats: [
+        { label: 'Scheduled Events', value: '12', note: 'Planned for this month' },
+        { label: 'Registered Schools', value: '184', note: 'Nationwide total' },
+        { label: 'Confirmed Judges', value: '96', note: 'Already assigned' }
+      ],
+      schedule: [
+        { round: 'Spring National Qualifier', date: '2026-05-18', venue: 'Online', status: 'Open for Entry' },
+        { round: 'Kanto Block Tournament', date: '2026-05-25', venue: 'Waseda University', status: 'Pairings Released' },
+        { round: 'National Final', date: '2026-06-15', venue: 'Tokyo International Forum', status: 'In Preparation' }
+      ],
+      scheduleHeaders: {
+        round: 'Round',
+        date: 'Date',
+        venue: 'Venue',
+        status: 'Status'
+      },
+      notices: [
+        'The 2026 participation guideline for Nationals is now available.',
+        'Please complete judge availability registration at least 7 days before each event.',
+        'For delays on tournament day, check the official live operations channel.'
+      ],
+      links: [
+        { label: 'Rules & Tournament Guide', desc: 'Review the latest tournament guide and competition rules.' },
+        { label: 'Quota Overview', desc: 'See regional and recommendation slot allocations.' },
+        { label: 'Matching Board', desc: 'Coordinate practice matches and requests in one place.' }
       ]
     }
   }

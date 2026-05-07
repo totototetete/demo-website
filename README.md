@@ -29,6 +29,7 @@ demo-website/
 ├── app/
 │   ├── layout.tsx          # ルートレイアウト（メタデータ・フォント設定）
 │   ├── page.tsx            # メインページ（Server Component）
+│   ├── dashboard/page.tsx  # 大会ダッシュボードページ
 │   └── globals.css         # グローバルスタイル
 ├── components/
 │   ├── Header.tsx          # ヘッダー（言語切り替え・ナビゲーション）

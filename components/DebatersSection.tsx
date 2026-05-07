@@ -1,6 +1,6 @@
 'use client';
 
-import { MessageSquare, Calendar, Users, BookOpen, ChevronRight, Trophy } from 'lucide-react';
+import { MessageSquare, Calendar, Users, BookOpen, ChevronRight, Trophy, LayoutDashboard } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
 
 // アイコンリスト（インデックスで対応）
@@ -38,7 +38,7 @@ export default function DebatersSection() {
             <a
               key={i}
               href="#"
-              className="flex items-center gap-6 bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all group border border-slate-100"
+              className="group flex items-start gap-4 rounded-2xl border border-slate-100 bg-white p-5 shadow-sm transition-all hover:shadow-xl sm:items-center sm:gap-6 sm:p-6"
               aria-label={item.title}
             >
               <div
@@ -58,6 +58,25 @@ export default function DebatersSection() {
               />
             </a>
           ))}
+          <a
+            href="/dashboard"
+            className="group flex items-start gap-4 rounded-2xl border border-slate-100 bg-white p-5 shadow-sm transition-all hover:shadow-xl sm:items-center sm:gap-6 sm:p-6"
+            aria-label={t.nav.dashboard}
+          >
+            <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-[#002b5b] text-white shadow-lg">
+              <LayoutDashboard size={28} aria-hidden="true" />
+            </div>
+            <div className="flex flex-col justify-center">
+              <h3 className="text-lg font-black text-slate-800 group-hover:text-blue-600 transition-colors tracking-tight">
+                {t.nav.dashboard}
+              </h3>
+              <p className="mt-1 text-xs font-bold text-slate-500">{t.dashboard.subtitle}</p>
+            </div>
+            <ChevronRight
+              className="ml-auto text-slate-300 group-hover:text-amber-500 transition-colors"
+              aria-hidden="true"
+            />
+          </a>
         </div>
       </div>
     </section>

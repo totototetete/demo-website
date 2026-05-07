@@ -54,6 +54,50 @@ export interface MovieItem {
   time: string;
 }
 
+// 大会ダッシュボード統計カードの型
+export interface DashboardStatItem {
+  label: string;
+  value: string;
+  note: string;
+}
+
+// 大会ダッシュボード日程アイテムの型
+export interface DashboardScheduleItem {
+  round: string;
+  date: string;
+  venue: string;
+  status: string;
+}
+
+// 大会ダッシュボードリンクアイテムの型
+export interface DashboardLinkItem {
+  label: string;
+  desc: string;
+}
+
+// 大会ダッシュボード日程ヘッダーの型
+export interface DashboardScheduleHeaders {
+  round: string;
+  date: string;
+  venue: string;
+  status: string;
+}
+
+// 大会ダッシュボードの辞書型
+export interface DashboardContent {
+  title: string;
+  subtitle: string;
+  statsTitle: string;
+  scheduleTitle: string;
+  noticesTitle: string;
+  linksTitle: string;
+  stats: DashboardStatItem[];
+  schedule: DashboardScheduleItem[];
+  scheduleHeaders: DashboardScheduleHeaders;
+  notices: string[];
+  links: DashboardLinkItem[];
+}
+
 // 辞書の型
 export interface DictSection {
   pickup: string;
@@ -93,4 +137,5 @@ export interface Dict {
   newsCats: string[];
   hero: HeroSlide[];
   items: DictItems;
+  dashboard: DashboardContent;
 }

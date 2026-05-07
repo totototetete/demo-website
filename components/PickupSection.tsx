@@ -24,7 +24,7 @@ export default function PickupSection() {
           {items.map((item, i) => (
             <a
               key={i}
-              href="#"
+              href={item.href}
               className="group block bg-white rounded-lg overflow-hidden shadow-lg transition-transform hover:-translate-y-1"
               aria-label={item.title}
             >

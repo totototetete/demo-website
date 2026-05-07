@@ -2,6 +2,8 @@
 
 import { MessageSquare, Calendar, Users, BookOpen, ChevronRight, Trophy, LayoutDashboard } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
+import { DEBATER_CARDS } from '@/lib/constants/debaterCards';
+import { ROUTES } from '@/lib/routes';
 
 // アイコンリスト（インデックスで対応）
 const icons = [
@@ -16,7 +18,8 @@ const bgColors = ['bg-blue-600', 'bg-indigo-600', 'bg-slate-700', 'bg-blue-800']
 
 // ディベーター向けセクションコンポーネント
 export default function DebatersSection() {
-  const { t } = useLanguage();
+  const { lang, t } = useLanguage();
+  const items = DEBATER_CARDS[lang];
 
   return (
     <section className="bg-slate-50 py-16" aria-label="ディベーターの方へ">
@@ -34,10 +37,10 @@ export default function DebatersSection() {
 
         {/* コンテンツグリッド */}
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          {t.items.debater.map((item, i) => (
+          {items.map((item, i) => (
             <a
               key={i}
-              href="#"
+              href={item.href}
               className="group flex items-start gap-4 rounded-2xl border border-slate-100 bg-white p-5 shadow-sm transition-all hover:shadow-xl sm:items-center sm:gap-6 sm:p-6"
               aria-label={item.title}
             >
@@ -59,7 +62,7 @@ export default function DebatersSection() {
             </a>
           ))}
           <a
-            href="/dashboard"
+            href={ROUTES.dashboard}
             className="group flex items-start gap-4 rounded-2xl border border-slate-100 bg-white p-5 shadow-sm transition-all hover:shadow-xl sm:items-center sm:gap-6 sm:p-6"
             aria-label={t.nav.dashboard}
           >

@@ -3,6 +3,7 @@
 import { useState, useMemo } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { NEWS_DATA } from '@/lib/constants/newsData';
+import { ROUTES } from '@/lib/routes';
 
 // ニュースセクションコンポーネント（フィルタリング機能付き）
 export default function NewsSection() {
@@ -61,7 +62,7 @@ export default function NewsSection() {
             filteredNews.map((news) => (
               <a
                 key={news.id}
-                href="#"
+                href={ROUTES.news}
                 className="group bg-white p-3 shadow-sm hover:shadow-md transition-shadow"
                 aria-label={news.title[lang]}
               >

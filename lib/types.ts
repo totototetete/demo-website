@@ -28,6 +28,7 @@ export interface NavItem {
 export interface PickupItem {
   title: string;
   label: string;
+  href: string;
 }
 
 // ビギナーアイテムの型
@@ -40,6 +41,11 @@ export interface BeginnerItem {
 export interface DebaterItem {
   title: string;
   desc: string;
+}
+
+// ディベーターカードアイテムの型
+export interface DebaterCardItem extends DebaterItem {
+  href: string;
 }
 
 // ファンアイテムの型
@@ -125,7 +131,6 @@ export interface DictNav {
 
 export interface DictItems {
   beginner: BeginnerItem[];
-  debater: DebaterItem[];
   fan: FanItem[];
   movies: MovieItem[];
 }

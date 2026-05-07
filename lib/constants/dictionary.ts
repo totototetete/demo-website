@@ -38,12 +38,6 @@ export const dict: Record<'ja' | 'en', Dict> = {
         { title: 'ルールガイド2026', desc: 'PDFでいつでもルールを確認。' },
         { title: 'モデルディベート実演', desc: '実際の試合を見て流れを掴もう。' }
       ],
-      debater: [
-        { title: 'マッチング掲示板', desc: '学校・レベル・日程を選んで試合を組もう。' },
-        { title: '大会ダッシュボード', desc: '全国の大会情報・出場枠を一覧で。' },
-        { title: 'ジャッジ依頼窓口', desc: '練習試合や地区大会への派遣依頼。' },
-        { title: '過去の論題アーカイブ', desc: '過去10年以上の資料を公開。' }
-      ],
       fan: [
         { label: 'OB・OG交流会', desc: '卒業後も続くネットワーク。' },
         { label: 'YouTube公式チャンネル', desc: '名勝負をいつでも視聴可能。' },
@@ -126,12 +120,6 @@ export const dict: Record<'ja' | 'en', Dict> = {
         { title: '5-min Intro Video', desc: 'Learn the basics quickly via video.' },
         { title: 'Rule Guide 2026', desc: 'Check rules anytime with our PDF guide.' },
         { title: 'Model Debate Demo', desc: 'Understand the flow by watching real matches.' }
-      ],
-      debater: [
-        { title: 'Matching Board', desc: 'Arrange matches by school, level, and date.' },
-        { title: 'Tournament Dashboard', desc: 'View national tournament info and quotas.' },
-        { title: 'Judge Request Desk', desc: 'Request judges for practice or regional matches.' },
-        { title: 'Topic Archive', desc: 'Access over 10 years of debate topics.' }
       ],
       fan: [
         { label: 'Alumni Network', desc: 'Keep connecting even after graduation.' },

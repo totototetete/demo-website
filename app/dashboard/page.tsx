@@ -108,6 +108,7 @@ export default function DashboardPage() {
                     key={notice}
                     className="rounded-xl border border-slate-100 bg-slate-50 p-3 text-xs font-bold leading-relaxed text-slate-600 sm:text-sm"
                   >
+                    <span className="mr-1 text-slate-400" aria-hidden="true">・</span>
                     {notice}
                   </li>
                 ))}

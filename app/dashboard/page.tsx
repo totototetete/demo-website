@@ -124,7 +124,7 @@ export default function DashboardPage() {
                 {dashboard.links.map((link) => (
                   <li key={link.label} className="rounded-xl border border-slate-100 bg-slate-50 p-4">
                     <p className="text-sm font-black text-slate-800">{link.label}</p>
-                    <p className="mt-1 text-xs font-bold leading-relaxed text-slate-500 break-all">{link.desc}</p>
+                    <p className="mt-1 text-xs font-bold leading-relaxed text-slate-500 break-words">{link.desc}</p>
                   </li>
                 ))}
               </ul>

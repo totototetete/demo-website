@@ -43,12 +43,12 @@ export default function Header() {
 
   // ナビゲーションアイテム
   const navItems = [
-    { label: t.nav.beginners, icon: <BookOpen size={16} aria-hidden="true" /> },
-    { label: t.nav.support, icon: <Users size={16} aria-hidden="true" /> },
-    { label: t.nav.rules, icon: <Calendar size={16} aria-hidden="true" /> },
-    { label: t.nav.dashboard, icon: <LayoutDashboard size={16} aria-hidden="true" /> },
-    { label: t.nav.matching, icon: <MessageSquare size={16} aria-hidden="true" /> },
-    { label: t.nav.alumni, icon: <Users size={16} aria-hidden="true" /> },
+    { label: t.nav.beginners, href: '#', icon: <BookOpen size={16} aria-hidden="true" /> },
+    { label: t.nav.support, href: '#', icon: <Users size={16} aria-hidden="true" /> },
+    { label: t.nav.rules, href: '#', icon: <Calendar size={16} aria-hidden="true" /> },
+    { label: t.nav.dashboard, href: '/dashboard', icon: <LayoutDashboard size={16} aria-hidden="true" /> },
+    { label: t.nav.matching, href: '#', icon: <MessageSquare size={16} aria-hidden="true" /> },
+    { label: t.nav.alumni, href: '#', icon: <Users size={16} aria-hidden="true" /> },
   ];
 
   return (
@@ -153,7 +153,7 @@ export default function Header() {
           {navItems.map((item, i) => (
             <li key={i} className="group relative flex-1 border-r border-blue-800 last:border-r-0">
               <a
-                href="#"
+                href={item.href}
                 className="flex h-12 flex-col items-center justify-center gap-1 transition-all group-hover:bg-blue-800"
               >
                 <span className="text-amber-400">{item.icon}</span>
@@ -174,7 +174,7 @@ export default function Header() {
             {navItems.map((item, i) => (
               <li key={i}>
                 <a
-                  href="#"
+                  href={item.href}
                   className="flex items-center gap-3 px-6 py-3 text-sm font-bold hover:bg-blue-800 transition-colors"
                   onClick={() => setIsMenuOpen(false)}
                 >

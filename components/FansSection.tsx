@@ -2,6 +2,7 @@
 
 import { Heart } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
+import { ROUTES } from '@/lib/routes';
 
 // ファン向けセクションコンポーネント
 export default function FansSection() {
@@ -26,7 +27,7 @@ export default function FansSection() {
           {t.items.fan.map((item, i) => (
             <a
               key={i}
-              href="#"
+              href={ROUTES.alumni}
               className="group w-full max-w-xs overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-2xl transition-all border border-slate-100"
               aria-label={item.label}
             >

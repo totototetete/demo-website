@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { Youtube, Instagram } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
+import { ROUTES } from '@/lib/routes';
 
 // Xロゴコンポーネント
 const XLogo = ({ size = 20 }: { size?: number }) => (
@@ -71,19 +72,19 @@ export default function Footer() {
           className="mb-8 flex flex-wrap justify-center gap-x-8 gap-y-2 text-xs font-bold text-slate-500 uppercase tracking-widest"
           aria-label="フッターナビゲーション"
         >
-          <a href="#" className="hover:text-blue-800 transition-colors">
+          <a href={ROUTES.beginners} className="hover:text-blue-800 transition-colors">
             {t.nav.beginners}
           </a>
-          <a href="#" className="hover:text-blue-800 transition-colors">
+          <a href={ROUTES.support} className="hover:text-blue-800 transition-colors">
             {t.nav.support}
           </a>
-          <a href="#" className="hover:text-blue-800 transition-colors">
+          <a href={ROUTES.matching} className="hover:text-blue-800 transition-colors">
             {t.nav.matching}
           </a>
-          <a href="#" className="hover:text-blue-800 transition-colors">
+          <a href={ROUTES.privacy} className="hover:text-blue-800 transition-colors">
             Privacy Policy
           </a>
-          <a href="#" className="hover:text-blue-800 transition-colors">
+          <a href={ROUTES.contact} className="hover:text-blue-800 transition-colors">
             Contact
           </a>
         </nav>

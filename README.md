@@ -48,10 +48,12 @@ demo-website/
 │   └── useSlider.ts        # スライダーカスタムフック
 ├── lib/
 │   ├── types.ts            # 型定義
+│   ├── routes.ts           # ルーティング定義
 │   └── constants/
 │       ├── dictionary.ts   # 多言語辞書
 │       ├── newsData.ts     # ニュースデータ
-│       └── pickupData.ts   # ピックアップデータ
+│       ├── pickupData.ts   # ピックアップデータ
+│       └── debaterCards.ts # ディベーター向けカードデータ
 ├── tailwind.config.ts      # Tailwind CSS設定
 ├── tsconfig.json           # TypeScript設定
 ├── next.config.ts          # Next.js設定

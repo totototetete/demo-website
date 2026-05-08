@@ -17,6 +17,7 @@ import {
   Globe,
 } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
+import { ROUTES } from '@/lib/routes';
 
 const XLogo = ({ size = 18 }: { size?: number }) => (
   <svg
@@ -43,12 +44,12 @@ export default function Header() {
 
   // ナビゲーションアイテム
   const navItems = [
-    { label: t.nav.beginners, href: '#', icon: <BookOpen size={16} aria-hidden="true" /> },
-    { label: t.nav.support, href: '#', icon: <Users size={16} aria-hidden="true" /> },
-    { label: t.nav.rules, href: '#', icon: <Calendar size={16} aria-hidden="true" /> },
-    { label: t.nav.dashboard, href: '/dashboard', icon: <LayoutDashboard size={16} aria-hidden="true" /> },
-    { label: t.nav.matching, href: '#', icon: <MessageSquare size={16} aria-hidden="true" /> },
-    { label: t.nav.alumni, href: '#', icon: <Users size={16} aria-hidden="true" /> },
+    { label: t.nav.beginners, href: ROUTES.beginners, icon: <BookOpen size={16} aria-hidden="true" /> },
+    { label: t.nav.support, href: ROUTES.support, icon: <Users size={16} aria-hidden="true" /> },
+    { label: t.nav.rules, href: ROUTES.rules, icon: <Calendar size={16} aria-hidden="true" /> },
+    { label: t.nav.dashboard, href: ROUTES.dashboard, icon: <LayoutDashboard size={16} aria-hidden="true" /> },
+    { label: t.nav.matching, href: ROUTES.matching, icon: <MessageSquare size={16} aria-hidden="true" /> },
+    { label: t.nav.alumni, href: ROUTES.alumni, icon: <Users size={16} aria-hidden="true" /> },
   ];
 
   return (
@@ -61,8 +62,8 @@ export default function Header() {
             role="button"
             tabIndex={0}
             aria-label="ホームへ戻る"
-            onClick={() => router.push('/')}
-            onKeyDown={(e) => e.key === 'Enter' && router.push('/')}
+            onClick={() => router.push(ROUTES.home)}
+            onKeyDown={(e) => e.key === 'Enter' && router.push(ROUTES.home)}
           >
             <Image
               src="/images/logo-dark.svg"

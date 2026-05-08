@@ -2,6 +2,7 @@
 
 import { Play, BookOpen, GraduationCap } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
+import { ROUTES } from '@/lib/routes';
 
 // アイコンリスト（インデックスで対応）
 const icons = [
@@ -33,7 +34,7 @@ export default function BeginnersSection() {
           {t.items.beginner.map((item, i) => (
             <a
               key={i}
-              href="#"
+              href={ROUTES.beginners}
               className="group flex flex-col items-center bg-slate-50 p-8 rounded-2xl border-2 border-transparent hover:border-amber-500 hover:bg-white transition-all shadow-sm"
               aria-label={item.title}
             >

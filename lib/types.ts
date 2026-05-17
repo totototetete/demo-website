@@ -89,17 +89,38 @@ export interface DashboardScheduleHeaders {
   status: string;
 }
 
+// 大会ダッシュボードカレンダーアイテムの型
+export interface DashboardCalendarItem {
+  tournament: string;
+  eventDate: string;
+  applyStart: string;
+  applyEnd: string;
+  status: string;
+}
+
+// 大会ダッシュボードカレンダーヘッダーの型
+export interface DashboardCalendarHeaders {
+  tournament: string;
+  eventDate: string;
+  applyStart: string;
+  applyEnd: string;
+  status: string;
+}
+
 // 大会ダッシュボードの辞書型
 export interface DashboardContent {
   title: string;
   subtitle: string;
   statsTitle: string;
   scheduleTitle: string;
+  calendarTitle: string;
   noticesTitle: string;
   linksTitle: string;
   stats: DashboardStatItem[];
   schedule: DashboardScheduleItem[];
   scheduleHeaders: DashboardScheduleHeaders;
+  calendar: DashboardCalendarItem[];
+  calendarHeaders: DashboardCalendarHeaders;
   notices: string[];
   links: DashboardLinkItem[];
 }

@@ -86,7 +86,7 @@ export const dict: Record<'ja' | 'en', Dict> = {
           tournament: '関東ブロック大会',
           eventDate: '2026-05-25',
           applyStart: '2026-04-10',
-          applyEnd: '2026-05-05',
+          applyEnd: '2026-05-20',
           status: '締切間近'
         },
         {
@@ -200,7 +200,7 @@ export const dict: Record<'ja' | 'en', Dict> = {
           tournament: 'Kanto Block Tournament',
           eventDate: '2026-05-25',
           applyStart: '2026-04-10',
-          applyEnd: '2026-05-05',
+          applyEnd: '2026-05-20',
           status: 'Closing Soon'
         },
         {

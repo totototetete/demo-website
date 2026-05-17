@@ -41,58 +41,121 @@ export default function DashboardPage() {
 
       <section className="bg-slate-50 py-10 md:py-12">
         <div className="mx-auto grid max-w-7xl gap-6 px-4 md:gap-8 lg:grid-cols-[2fr_1fr]">
-          <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
-            <h2 className="mb-5 flex items-center gap-2 text-xl font-black italic text-[#002b5b]">
-              <CalendarDays className="text-amber-500" aria-hidden="true" />
-              {dashboard.scheduleTitle}
-            </h2>
-            <ul className="space-y-3 md:hidden">
-              {dashboard.schedule.map((item) => (
-                <li key={`${item.round}-${item.date}`} className="rounded-xl border border-slate-100 bg-slate-50 p-4">
-                  <p className="text-sm font-black text-slate-800">{item.round}</p>
-                  <dl className="mt-2 space-y-1 text-xs font-bold text-slate-600">
-                    <div className="flex items-start justify-between gap-3">
-                      <dt className="text-slate-500">{dashboard.scheduleHeaders.date}</dt>
-                      <dd className="text-right">{item.date}</dd>
-                    </div>
-                    <div className="flex items-start justify-between gap-3">
-                      <dt className="text-slate-500">{dashboard.scheduleHeaders.venue}</dt>
-                      <dd className="text-right">{item.venue}</dd>
-                    </div>
-                    <div className="pt-1">
-                      <span className="inline-flex rounded-full bg-blue-100 px-3 py-1 text-xs font-black text-blue-700">
-                        {item.status}
-                      </span>
-                    </div>
-                  </dl>
-                </li>
-              ))}
-            </ul>
-            <div className="hidden overflow-x-auto md:block">
-              <table className="w-full min-w-[560px] text-left">
-                <thead>
-                  <tr className="border-b border-slate-200 text-xs font-bold uppercase tracking-widest text-slate-500">
-                    <th className="px-2 py-3">{dashboard.scheduleHeaders.round}</th>
-                    <th className="px-2 py-3">{dashboard.scheduleHeaders.date}</th>
-                    <th className="px-2 py-3">{dashboard.scheduleHeaders.venue}</th>
-                    <th className="px-2 py-3">{dashboard.scheduleHeaders.status}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {dashboard.schedule.map((item) => (
-                    <tr key={`${item.round}-${item.date}`} className="border-b border-slate-100 last:border-0">
-                      <td className="px-2 py-4 text-xs font-black text-slate-800 sm:text-sm">{item.round}</td>
-                      <td className="px-2 py-4 text-xs font-bold text-slate-600 sm:text-sm">{item.date}</td>
-                      <td className="px-2 py-4 text-xs font-bold text-slate-600 sm:text-sm">{item.venue}</td>
-                      <td className="px-2 py-4">
+          <div className="space-y-6">
+            <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
+              <h2 className="mb-5 flex items-center gap-2 text-xl font-black italic text-[#002b5b]">
+                <CalendarDays className="text-amber-500" aria-hidden="true" />
+                {dashboard.scheduleTitle}
+              </h2>
+              <ul className="space-y-3 md:hidden">
+                {dashboard.schedule.map((item) => (
+                  <li key={`${item.round}-${item.date}`} className="rounded-xl border border-slate-100 bg-slate-50 p-4">
+                    <p className="text-sm font-black text-slate-800">{item.round}</p>
+                    <dl className="mt-2 space-y-1 text-xs font-bold text-slate-600">
+                      <div className="flex items-start justify-between gap-3">
+                        <dt className="text-slate-500">{dashboard.scheduleHeaders.date}</dt>
+                        <dd className="text-right">{item.date}</dd>
+                      </div>
+                      <div className="flex items-start justify-between gap-3">
+                        <dt className="text-slate-500">{dashboard.scheduleHeaders.venue}</dt>
+                        <dd className="text-right">{item.venue}</dd>
+                      </div>
+                      <div className="pt-1">
                         <span className="inline-flex rounded-full bg-blue-100 px-3 py-1 text-xs font-black text-blue-700">
                           {item.status}
                         </span>
-                      </td>
+                      </div>
+                    </dl>
+                  </li>
+                ))}
+              </ul>
+              <div className="hidden overflow-x-auto md:block">
+                <table className="w-full min-w-[560px] text-left">
+                  <thead>
+                    <tr className="border-b border-slate-200 text-xs font-bold uppercase tracking-widest text-slate-500">
+                      <th className="px-2 py-3">{dashboard.scheduleHeaders.round}</th>
+                      <th className="px-2 py-3">{dashboard.scheduleHeaders.date}</th>
+                      <th className="px-2 py-3">{dashboard.scheduleHeaders.venue}</th>
+                      <th className="px-2 py-3">{dashboard.scheduleHeaders.status}</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {dashboard.schedule.map((item) => (
+                      <tr key={`${item.round}-${item.date}`} className="border-b border-slate-100 last:border-0">
+                        <td className="px-2 py-4 text-xs font-black text-slate-800 sm:text-sm">{item.round}</td>
+                        <td className="px-2 py-4 text-xs font-bold text-slate-600 sm:text-sm">{item.date}</td>
+                        <td className="px-2 py-4 text-xs font-bold text-slate-600 sm:text-sm">{item.venue}</td>
+                        <td className="px-2 py-4">
+                          <span className="inline-flex rounded-full bg-blue-100 px-3 py-1 text-xs font-black text-blue-700">
+                            {item.status}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
+              <h2 className="mb-5 flex items-center gap-2 text-xl font-black italic text-[#002b5b]">
+                <CalendarDays className="text-amber-500" aria-hidden="true" />
+                {dashboard.calendarTitle}
+              </h2>
+              <ul className="space-y-3 md:hidden">
+                {dashboard.calendar.map((item) => (
+                  <li key={`${item.tournament}-${item.eventDate}`} className="rounded-xl border border-slate-100 bg-slate-50 p-4">
+                    <p className="text-sm font-black text-slate-800">{item.tournament}</p>
+                    <dl className="mt-2 space-y-1 text-xs font-bold text-slate-600">
+                      <div className="flex items-start justify-between gap-3">
+                        <dt className="text-slate-500">{dashboard.calendarHeaders.eventDate}</dt>
+                        <dd className="text-right">{item.eventDate}</dd>
+                      </div>
+                      <div className="flex items-start justify-between gap-3">
+                        <dt className="text-slate-500">{dashboard.calendarHeaders.applyStart}</dt>
+                        <dd className="text-right">{item.applyStart}</dd>
+                      </div>
+                      <div className="flex items-start justify-between gap-3">
+                        <dt className="text-slate-500">{dashboard.calendarHeaders.applyEnd}</dt>
+                        <dd className="text-right">{item.applyEnd}</dd>
+                      </div>
+                      <div className="pt-1">
+                        <span className="inline-flex rounded-full bg-blue-100 px-3 py-1 text-xs font-black text-blue-700">
+                          {item.status}
+                        </span>
+                      </div>
+                    </dl>
+                  </li>
+                ))}
+              </ul>
+              <div className="hidden overflow-x-auto md:block">
+                <table className="w-full min-w-[680px] text-left">
+                  <thead>
+                    <tr className="border-b border-slate-200 text-xs font-bold uppercase tracking-widest text-slate-500">
+                      <th className="px-2 py-3">{dashboard.calendarHeaders.tournament}</th>
+                      <th className="px-2 py-3">{dashboard.calendarHeaders.eventDate}</th>
+                      <th className="px-2 py-3">{dashboard.calendarHeaders.applyStart}</th>
+                      <th className="px-2 py-3">{dashboard.calendarHeaders.applyEnd}</th>
+                      <th className="px-2 py-3">{dashboard.calendarHeaders.status}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {dashboard.calendar.map((item) => (
+                      <tr key={`${item.tournament}-${item.eventDate}`} className="border-b border-slate-100 last:border-0">
+                        <td className="px-2 py-4 text-xs font-black text-slate-800 sm:text-sm">{item.tournament}</td>
+                        <td className="px-2 py-4 text-xs font-bold text-slate-600 sm:text-sm">{item.eventDate}</td>
+                        <td className="px-2 py-4 text-xs font-bold text-slate-600 sm:text-sm">{item.applyStart}</td>
+                        <td className="px-2 py-4 text-xs font-bold text-slate-600 sm:text-sm">{item.applyEnd}</td>
+                        <td className="px-2 py-4">
+                          <span className="inline-flex rounded-full bg-blue-100 px-3 py-1 text-xs font-black text-blue-700">
+                            {item.status}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
 

@@ -55,6 +55,7 @@ export const dict: Record<'ja' | 'en', Dict> = {
       subtitle: '全国大会と地区大会の進行状況をまとめて確認できます。',
       statsTitle: '本日のサマリー',
       scheduleTitle: '直近スケジュール',
+      calendarTitle: '大会カレンダー（募集期間）',
       noticesTitle: '運営からのお知らせ',
       linksTitle: '関連リンク',
       stats: [
@@ -71,6 +72,36 @@ export const dict: Record<'ja' | 'en', Dict> = {
         round: '大会',
         date: '日程',
         venue: '会場',
+        status: 'ステータス'
+      },
+      calendar: [
+        {
+          tournament: '春季全国予選',
+          eventDate: '2026-05-18',
+          applyStart: '2026-04-01',
+          applyEnd: '2026-04-25',
+          status: '受付中'
+        },
+        {
+          tournament: '関東ブロック大会',
+          eventDate: '2026-05-25',
+          applyStart: '2026-04-10',
+          applyEnd: '2026-05-05',
+          status: '締切間近'
+        },
+        {
+          tournament: '全国大会 決勝',
+          eventDate: '2026-06-15',
+          applyStart: '2026-05-01',
+          applyEnd: '2026-05-31',
+          status: '準備中'
+        }
+      ],
+      calendarHeaders: {
+        tournament: '大会名',
+        eventDate: '開催日',
+        applyStart: '応募開始',
+        applyEnd: '応募締切',
         status: 'ステータス'
       },
       notices: [
@@ -138,6 +169,7 @@ export const dict: Record<'ja' | 'en', Dict> = {
       subtitle: 'Track national and regional tournament progress in one place.',
       statsTitle: 'Today’s Summary',
       scheduleTitle: 'Upcoming Schedule',
+      calendarTitle: 'Tournament Calendar (Application Window)',
       noticesTitle: 'Operations Updates',
       linksTitle: 'Quick Links',
       stats: [
@@ -154,6 +186,36 @@ export const dict: Record<'ja' | 'en', Dict> = {
         round: 'Round',
         date: 'Date',
         venue: 'Venue',
+        status: 'Status'
+      },
+      calendar: [
+        {
+          tournament: 'Spring National Qualifier',
+          eventDate: '2026-05-18',
+          applyStart: '2026-04-01',
+          applyEnd: '2026-04-25',
+          status: 'Open for Entry'
+        },
+        {
+          tournament: 'Kanto Block Tournament',
+          eventDate: '2026-05-25',
+          applyStart: '2026-04-10',
+          applyEnd: '2026-05-05',
+          status: 'Closing Soon'
+        },
+        {
+          tournament: 'National Final',
+          eventDate: '2026-06-15',
+          applyStart: '2026-05-01',
+          applyEnd: '2026-05-31',
+          status: 'In Preparation'
+        }
+      ],
+      calendarHeaders: {
+        tournament: 'Tournament',
+        eventDate: 'Event Date',
+        applyStart: 'Application Start',
+        applyEnd: 'Application End',
         status: 'Status'
       },
       notices: [

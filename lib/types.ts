@@ -96,6 +96,11 @@ export interface DashboardCalendarLabels {
   weekdays: string[];
   legendTournament: string;
   legendDeadline: string;
+  openTitle: string;
+  daysLeft: string;
+  daysLeftSuffix: string;
+  daysLeftToday: string;
+  noOpenEntries: string;
 }
 
 export interface DashboardCalendarEvent {

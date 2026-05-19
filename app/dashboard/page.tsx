@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { CalendarDays, Bell, Link as LinkIcon, LayoutDashboard, ChevronLeft, ChevronRight } from 'lucide-react';
+import { CalendarDays, Bell, Link as LinkIcon, LayoutDashboard, ChevronLeft, ChevronRight, ClipboardList } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { useLanguage } from '@/hooks/useLanguage';
@@ -51,6 +51,22 @@ export default function DashboardPage() {
       }, {}),
     [dashboard.calendarEvents],
   );
+
+  const openDeadlines = useMemo(
+    () =>
+      dashboard.calendarEvents.filter(
+        (event) => event.type === 'deadline' && event.date >= todayKey,
+      ),
+    [dashboard.calendarEvents, todayKey],
+  );
+
+  const daysUntil = (dateKey: string) => {
+    const msPerDay = 1000 * 60 * 60 * 24;
+    const [y, m, d] = dateKey.split('-').map(Number);
+    const deadlineUtc = Date.UTC(y, m - 1, d);
+    const todayUtc = Date.UTC(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+    return Math.round((deadlineUtc - todayUtc) / msPerDay);
+  };
 
   const calendarCells = useMemo(() => {
     const year = currentMonth.getFullYear();
@@ -131,6 +147,44 @@ export default function DashboardPage() {
               <CalendarDays className="text-amber-500" aria-hidden="true" />
               {dashboard.scheduleTitle}
             </h2>
+            <div className="mb-4 rounded-xl border border-emerald-200 bg-emerald-50 p-3 sm:p-4">
+              <div className="flex items-center gap-2">
+                <ClipboardList size={16} className="shrink-0 text-emerald-600" aria-hidden="true" />
+                <span className="text-sm font-black text-emerald-700">
+                  {dashboard.calendar.openTitle}
+                  <span className="ml-1.5 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-emerald-600 px-1.5 text-[11px] font-black text-white">
+                    {openDeadlines.length}
+                  </span>
+                </span>
+              </div>
+              {openDeadlines.length === 0 ? (
+                <p className="mt-2 text-xs font-bold text-emerald-600">{dashboard.calendar.noOpenEntries}</p>
+              ) : (
+                <ul className="mt-2 space-y-1.5">
+                  {openDeadlines.map((event) => {
+                    const days = daysUntil(event.date);
+                    const deadlineLabel =
+                      days === 0
+                        ? dashboard.calendar.daysLeftToday
+                        : `${dashboard.calendar.daysLeft}${days}${dashboard.calendar.daysLeftSuffix}`;
+                    return (
+                      <li key={event.date} className="flex items-center justify-between gap-3 rounded-lg bg-white px-3 py-2">
+                        <span className="text-xs font-bold text-slate-700">
+                          {event.title.replace(/\s*申込締切$/, '').replace(/\s*Entry Deadline$/, '')}
+                        </span>
+                        <span
+                          className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-black ${
+                            days === 0 ? 'bg-red-100 text-red-700' : days <= 3 ? 'bg-amber-100 text-amber-700' : 'bg-slate-100 text-slate-600'
+                          }`}
+                        >
+                          {deadlineLabel}
+                        </span>
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
+            </div>
             <div className="rounded-xl border border-slate-100 bg-slate-50 p-3 sm:p-4">
               <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
                 <h3 className="text-base font-black text-slate-800 sm:text-lg">{monthLabel}</h3>

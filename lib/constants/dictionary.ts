@@ -79,7 +79,12 @@ export const dict: Record<'ja' | 'en', Dict> = {
         today: '今日',
         weekdays: ['日', '月', '火', '水', '木', '金', '土'],
         legendTournament: '大会',
-        legendDeadline: '申込締切'
+        legendDeadline: '申込締切',
+        openTitle: '申込受付中',
+        daysLeft: '締切まで',
+        daysLeftSuffix: '日',
+        daysLeftToday: '本日締切！',
+        noOpenEntries: '現在申込受付中の大会はありません'
       },
       calendarEvents: [
         { title: '春季全国予選', date: '2026-05-18', type: 'tournament' },
@@ -178,7 +183,12 @@ export const dict: Record<'ja' | 'en', Dict> = {
         today: 'Today',
         weekdays: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
         legendTournament: 'Tournament',
-        legendDeadline: 'Deadline'
+        legendDeadline: 'Deadline',
+        openTitle: 'Entry Open',
+        daysLeft: '',
+        daysLeftSuffix: ' day(s) left',
+        daysLeftToday: 'Last day!',
+        noOpenEntries: 'No tournaments currently open for entry'
       },
       calendarEvents: [
         { title: 'Spring National Qualifier', date: '2026-05-18', type: 'tournament' },

@@ -16,9 +16,14 @@ export default function DashboardPage() {
   const { t, lang } = useLanguage();
   const dashboard = t.dashboard;
   const calendarBase = useMemo(() => {
-    const firstEventDate = dashboard.calendarEvents[0]?.date;
-    if (!firstEventDate) return new Date();
-    const [year, month] = firstEventDate.split('-').map(Number);
+    const earliestEventDate = dashboard.calendarEvents.reduce<string | null>((earliest, event) => {
+      if (!earliest || event.date < earliest) {
+        return event.date;
+      }
+      return earliest;
+    }, null);
+    if (!earliestEventDate) return new Date();
+    const [year, month] = earliestEventDate.split('-').map(Number);
     return new Date(year, month - 1, 1);
   }, [dashboard.calendarEvents]);
   const [currentMonth, setCurrentMonth] = useState(

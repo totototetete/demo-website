@@ -9,6 +9,8 @@ import type { DashboardCalendarEvent } from '@/lib/types';
 
 const toDateKey = (date: Date) =>
   `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+const SUNDAY_INDEX = 0;
+const SATURDAY_INDEX = 6;
 
 export default function DashboardPage() {
   const { t, lang } = useLanguage();
@@ -153,7 +155,9 @@ export default function DashboardPage() {
                 {dashboard.calendar.weekdays.map((weekday, index) => (
                   <div
                     key={weekday}
-                    className={`py-2 text-center text-xs font-bold ${index === 0 ? 'text-red-500' : index === 6 ? 'text-blue-500' : 'text-slate-500'}`}
+                    className={`py-2 text-center text-xs font-bold ${
+                      index === SUNDAY_INDEX ? 'text-red-500' : index === SATURDAY_INDEX ? 'text-blue-500' : 'text-slate-500'
+                    }`}
                   >
                     {weekday}
                   </div>

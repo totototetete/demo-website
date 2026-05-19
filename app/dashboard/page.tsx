@@ -162,7 +162,7 @@ export default function DashboardPage() {
 
                   return (
                     <div
-                      key={`${cell.dayNumber}-${index}`}
+                      key={cell.dateKey || `empty-cell-${index}`}
                       className={`min-h-24 rounded-md border p-1.5 sm:min-h-28 sm:p-2 ${
                         cell.isCurrentMonth ? 'border-slate-100 bg-slate-50' : 'border-transparent bg-slate-100/70'
                       } ${isToday ? 'ring-2 ring-amber-400' : ''}`}
@@ -171,9 +171,9 @@ export default function DashboardPage() {
                         {cell.dayNumber}
                       </p>
                       <div className="mt-1 space-y-1">
-                        {events.map((event) => (
+                        {events.map((event, eventIndex) => (
                           <span
-                            key={`${event.type}-${event.title}`}
+                            key={`${cell.dateKey}-${event.type}-${event.title}-${eventIndex}`}
                             className={`block truncate rounded px-1.5 py-1 text-[10px] font-bold leading-tight sm:text-[11px] ${
                               event.type === 'tournament'
                                 ? 'bg-blue-100 text-blue-700'

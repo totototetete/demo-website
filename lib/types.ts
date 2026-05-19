@@ -89,6 +89,21 @@ export interface DashboardScheduleHeaders {
   status: string;
 }
 
+export interface DashboardCalendarLabels {
+  prevMonth: string;
+  nextMonth: string;
+  today: string;
+  weekdays: string[];
+  legendTournament: string;
+  legendDeadline: string;
+}
+
+export interface DashboardCalendarEvent {
+  title: string;
+  date: string;
+  type: 'tournament' | 'deadline';
+}
+
 // 大会ダッシュボードの辞書型
 export interface DashboardContent {
   title: string;
@@ -100,6 +115,8 @@ export interface DashboardContent {
   stats: DashboardStatItem[];
   schedule: DashboardScheduleItem[];
   scheduleHeaders: DashboardScheduleHeaders;
+  calendar: DashboardCalendarLabels;
+  calendarEvents: DashboardCalendarEvent[];
   notices: string[];
   links: DashboardLinkItem[];
 }

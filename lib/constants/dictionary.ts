@@ -73,6 +73,22 @@ export const dict: Record<'ja' | 'en', Dict> = {
         venue: '会場',
         status: 'ステータス'
       },
+      calendar: {
+        prevMonth: '前月',
+        nextMonth: '次月',
+        today: '今日',
+        weekdays: ['日', '月', '火', '水', '木', '金', '土'],
+        legendTournament: '大会',
+        legendDeadline: '申込締切'
+      },
+      calendarEvents: [
+        { title: '春季全国予選', date: '2026-05-18', type: 'tournament' },
+        { title: '関東ブロック大会', date: '2026-05-25', type: 'tournament' },
+        { title: '全国大会 決勝', date: '2026-06-15', type: 'tournament' },
+        { title: '春季全国予選 申込締切', date: '2026-05-12', type: 'deadline' },
+        { title: '関東ブロック大会 申込締切', date: '2026-05-20', type: 'deadline' },
+        { title: '全国大会 決勝 申込締切', date: '2026-06-07', type: 'deadline' }
+      ],
       notices: [
         '全国大会の参加校向けガイドライン（2026年度版）を公開しました。',
         '地区大会のジャッジ希望登録は各開催日の7日前までに完了してください。',
@@ -156,6 +172,22 @@ export const dict: Record<'ja' | 'en', Dict> = {
         venue: 'Venue',
         status: 'Status'
       },
+      calendar: {
+        prevMonth: 'Prev',
+        nextMonth: 'Next',
+        today: 'Today',
+        weekdays: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+        legendTournament: 'Tournament',
+        legendDeadline: 'Deadline'
+      },
+      calendarEvents: [
+        { title: 'Spring National Qualifier', date: '2026-05-18', type: 'tournament' },
+        { title: 'Kanto Block Tournament', date: '2026-05-25', type: 'tournament' },
+        { title: 'National Final', date: '2026-06-15', type: 'tournament' },
+        { title: 'Spring Qualifier Entry Deadline', date: '2026-05-12', type: 'deadline' },
+        { title: 'Kanto Block Entry Deadline', date: '2026-05-20', type: 'deadline' },
+        { title: 'National Final Entry Deadline', date: '2026-06-07', type: 'deadline' }
+      ],
       notices: [
         'The 2026 participation guideline for Nationals is now available.',
         'Please complete judge availability registration at least 7 days before each event.',

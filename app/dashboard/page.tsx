@@ -1,13 +1,114 @@
 'use client';
 
-import { CalendarDays, Bell, Link as LinkIcon, LayoutDashboard } from 'lucide-react';
+import { useMemo, useState } from 'react';
+import { CalendarDays, Bell, Link as LinkIcon, LayoutDashboard, ChevronLeft, ChevronRight, ClipboardList } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { useLanguage } from '@/hooks/useLanguage';
+import type { DashboardCalendarEvent } from '@/lib/types';
+
+const toDateKey = (date: Date) =>
+  `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+const SUNDAY_INDEX = 0;
+const SATURDAY_INDEX = 6;
 
 export default function DashboardPage() {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   const dashboard = t.dashboard;
+  const calendarBase = useMemo(() => {
+    const earliestEventDate = dashboard.calendarEvents.reduce<string | null>((earliest, event) => {
+      if (!earliest || event.date < earliest) {
+        return event.date;
+      }
+      return earliest;
+    }, null);
+    if (!earliestEventDate) return new Date();
+    const [year, month] = earliestEventDate.split('-').map(Number);
+    return new Date(year, month - 1, 1);
+  }, [dashboard.calendarEvents]);
+  const [currentMonth, setCurrentMonth] = useState(
+    () => new Date(calendarBase.getFullYear(), calendarBase.getMonth(), 1),
+  );
+
+  const monthLabel = useMemo(
+    () =>
+      new Intl.DateTimeFormat(lang === 'ja' ? 'ja-JP' : 'en-US', {
+        year: 'numeric',
+        month: 'long',
+      }).format(currentMonth),
+    [currentMonth, lang],
+  );
+
+  const todayKey = toDateKey(new Date());
+  const monthEvents = useMemo(
+    () =>
+      dashboard.calendarEvents.reduce<Record<string, DashboardCalendarEvent[]>>((acc, event) => {
+        if (!acc[event.date]) {
+          acc[event.date] = [];
+        }
+        acc[event.date].push(event);
+        return acc;
+      }, {}),
+    [dashboard.calendarEvents],
+  );
+
+  const openDeadlines = useMemo(
+    () =>
+      dashboard.calendarEvents.filter(
+        (event) => event.type === 'deadline' && event.date >= todayKey,
+      ),
+    [dashboard.calendarEvents, todayKey],
+  );
+
+  const daysUntil = (dateKey: string) => {
+    const msPerDay = 1000 * 60 * 60 * 24;
+    const [y, m, d] = dateKey.split('-').map(Number);
+    const deadlineUtc = Date.UTC(y, m - 1, d);
+    const todayUtc = Date.UTC(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+    return Math.round((deadlineUtc - todayUtc) / msPerDay);
+  };
+
+  const calendarCells = useMemo(() => {
+    const year = currentMonth.getFullYear();
+    const month = currentMonth.getMonth();
+    const firstDay = new Date(year, month, 1);
+    const firstWeekday = firstDay.getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const daysInPrevMonth = new Date(year, month, 0).getDate();
+
+    return Array.from({ length: 42 }, (_, index) => {
+      const day = index - firstWeekday + 1;
+      if (day <= 0) {
+        const date = new Date(year, month - 1, daysInPrevMonth + day);
+        return {
+          dayNumber: daysInPrevMonth + day,
+          dateKey: toDateKey(date),
+          isCurrentMonth: false,
+        };
+      }
+      if (day > daysInMonth) {
+        const date = new Date(year, month + 1, day - daysInMonth);
+        return {
+          dayNumber: day - daysInMonth,
+          dateKey: toDateKey(date),
+          isCurrentMonth: false,
+        };
+      }
+      return {
+        dayNumber: day,
+        dateKey: toDateKey(new Date(year, month, day)),
+        isCurrentMonth: true,
+      };
+    });
+  }, [currentMonth]);
+
+  const goToPrevMonth = () => {
+    setCurrentMonth((prev) => new Date(prev.getFullYear(), prev.getMonth() - 1, 1));
+  };
+
+  const goToNextMonth = () => {
+    setCurrentMonth((prev) => new Date(prev.getFullYear(), prev.getMonth() + 1, 1));
+  };
 
   return (
     <main>
@@ -46,53 +147,127 @@ export default function DashboardPage() {
               <CalendarDays className="text-amber-500" aria-hidden="true" />
               {dashboard.scheduleTitle}
             </h2>
-            <ul className="space-y-3 md:hidden">
-              {dashboard.schedule.map((item) => (
-                <li key={`${item.round}-${item.date}`} className="rounded-xl border border-slate-100 bg-slate-50 p-4">
-                  <p className="text-sm font-black text-slate-800">{item.round}</p>
-                  <dl className="mt-2 space-y-1 text-xs font-bold text-slate-600">
-                    <div className="flex items-start justify-between gap-3">
-                      <dt className="text-slate-500">{dashboard.scheduleHeaders.date}</dt>
-                      <dd className="text-right">{item.date}</dd>
-                    </div>
-                    <div className="flex items-start justify-between gap-3">
-                      <dt className="text-slate-500">{dashboard.scheduleHeaders.venue}</dt>
-                      <dd className="text-right">{item.venue}</dd>
-                    </div>
-                    <div className="pt-1">
-                      <span className="inline-flex rounded-full bg-blue-100 px-3 py-1 text-xs font-black text-blue-700">
-                        {item.status}
-                      </span>
-                    </div>
-                  </dl>
-                </li>
-              ))}
-            </ul>
-            <div className="hidden overflow-x-auto md:block">
-              <table className="w-full min-w-[560px] text-left">
-                <thead>
-                  <tr className="border-b border-slate-200 text-xs font-bold uppercase tracking-widest text-slate-500">
-                    <th className="px-2 py-3">{dashboard.scheduleHeaders.round}</th>
-                    <th className="px-2 py-3">{dashboard.scheduleHeaders.date}</th>
-                    <th className="px-2 py-3">{dashboard.scheduleHeaders.venue}</th>
-                    <th className="px-2 py-3">{dashboard.scheduleHeaders.status}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {dashboard.schedule.map((item) => (
-                    <tr key={`${item.round}-${item.date}`} className="border-b border-slate-100 last:border-0">
-                      <td className="px-2 py-4 text-xs font-black text-slate-800 sm:text-sm">{item.round}</td>
-                      <td className="px-2 py-4 text-xs font-bold text-slate-600 sm:text-sm">{item.date}</td>
-                      <td className="px-2 py-4 text-xs font-bold text-slate-600 sm:text-sm">{item.venue}</td>
-                      <td className="px-2 py-4">
-                        <span className="inline-flex rounded-full bg-blue-100 px-3 py-1 text-xs font-black text-blue-700">
-                          {item.status}
+            <div className="mb-4 rounded-xl border border-emerald-200 bg-emerald-50 p-3 sm:p-4">
+              <div className="flex items-center gap-2">
+                <ClipboardList size={16} className="shrink-0 text-emerald-600" aria-hidden="true" />
+                <span className="text-sm font-black text-emerald-700">
+                  {dashboard.calendar.openTitle}
+                  <span className="ml-1.5 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-emerald-600 px-1.5 text-[11px] font-black text-white">
+                    {openDeadlines.length}
+                  </span>
+                </span>
+              </div>
+              {openDeadlines.length === 0 ? (
+                <p className="mt-2 text-xs font-bold text-emerald-600">{dashboard.calendar.noOpenEntries}</p>
+              ) : (
+                <ul className="mt-2 space-y-1.5">
+                  {openDeadlines.map((event) => {
+                    const days = daysUntil(event.date);
+                    const deadlineLabel =
+                      days === 0
+                        ? dashboard.calendar.daysLeftToday
+                        : `${dashboard.calendar.daysLeft}${days}${dashboard.calendar.daysLeftSuffix}`;
+                    return (
+                      <li key={event.date} className="flex items-center justify-between gap-3 rounded-lg bg-white px-3 py-2">
+                        <span className="text-xs font-bold text-slate-700">
+                          {event.title.replace(/\s*申込締切$/, '').replace(/\s*Entry Deadline$/, '')}
                         </span>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+                        <span
+                          className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-black ${
+                            days === 0 ? 'bg-red-100 text-red-700' : days <= 3 ? 'bg-amber-100 text-amber-700' : 'bg-slate-100 text-slate-600'
+                          }`}
+                        >
+                          {deadlineLabel}
+                        </span>
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
+            </div>
+            <div className="rounded-xl border border-slate-100 bg-slate-50 p-3 sm:p-4">
+              <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+                <h3 className="text-base font-black text-slate-800 sm:text-lg">{monthLabel}</h3>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={goToPrevMonth}
+                    className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-bold text-slate-600 transition-colors hover:bg-slate-100"
+                    aria-label={dashboard.calendar.prevMonth}
+                  >
+                    <ChevronLeft size={14} aria-hidden="true" />
+                    <span>{dashboard.calendar.prevMonth}</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={goToNextMonth}
+                    className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-bold text-slate-600 transition-colors hover:bg-slate-100"
+                    aria-label={dashboard.calendar.nextMonth}
+                  >
+                    <span>{dashboard.calendar.nextMonth}</span>
+                    <ChevronRight size={14} aria-hidden="true" />
+                  </button>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-7 gap-1 rounded-lg bg-white p-2">
+                {dashboard.calendar.weekdays.map((weekday, index) => (
+                  <div
+                    key={weekday}
+                    className={`py-2 text-center text-xs font-bold ${
+                      index === SUNDAY_INDEX ? 'text-red-500' : index === SATURDAY_INDEX ? 'text-blue-500' : 'text-slate-500'
+                    }`}
+                  >
+                    {weekday}
+                  </div>
+                ))}
+                {calendarCells.map((cell) => {
+                  const events = cell.isCurrentMonth ? monthEvents[cell.dateKey] ?? [] : [];
+                  const isToday = cell.dateKey === todayKey;
+
+                  return (
+                    <div
+                      key={cell.dateKey}
+                      className={`min-h-24 rounded-md border p-1.5 sm:min-h-28 sm:p-2 ${
+                        cell.isCurrentMonth ? 'border-slate-100 bg-slate-50' : 'border-transparent bg-slate-100/70'
+                      } ${isToday ? 'ring-2 ring-amber-400' : ''}`}
+                    >
+                      <p className={`text-xs font-black ${cell.isCurrentMonth ? 'text-slate-700' : 'text-slate-400'}`}>
+                        {cell.dayNumber}
+                      </p>
+                      <div className="mt-1 space-y-1">
+                        {events.map((event, eventIndex) => (
+                          <span
+                            key={`${cell.dateKey}-${eventIndex}`}
+                            className={`block truncate rounded px-1.5 py-1 text-[10px] font-bold leading-tight sm:text-[11px] ${
+                              event.type === 'tournament'
+                                ? 'bg-blue-100 text-blue-700'
+                                : 'bg-rose-100 text-rose-700'
+                            }`}
+                          >
+                            {event.title}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div className="mt-3 flex flex-wrap items-center gap-3 text-xs font-bold text-slate-600">
+                <span className="inline-flex items-center gap-1.5">
+                  <span className="h-2.5 w-2.5 rounded-full bg-blue-500" aria-hidden="true" />
+                  {dashboard.calendar.legendTournament}
+                </span>
+                <span className="inline-flex items-center gap-1.5">
+                  <span className="h-2.5 w-2.5 rounded-full bg-rose-500" aria-hidden="true" />
+                  {dashboard.calendar.legendDeadline}
+                </span>
+                <span className="inline-flex items-center gap-1.5">
+                  <span className="h-2.5 w-2.5 rounded-full bg-amber-500" aria-hidden="true" />
+                  {dashboard.calendar.today}
+                </span>
+              </div>
             </div>
           </div>
 

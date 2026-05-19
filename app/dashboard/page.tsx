@@ -31,6 +31,7 @@ export default function DashboardPage() {
       }).format(currentMonth),
     [currentMonth, lang],
   );
+  const currentMonthKey = `${currentMonth.getFullYear()}-${currentMonth.getMonth()}`;
 
   const todayKey = toDateKey(new Date());
   const monthEvents = useMemo(
@@ -162,7 +163,7 @@ export default function DashboardPage() {
 
                   return (
                     <div
-                      key={cell.dateKey || `empty-cell-${index}`}
+                      key={cell.dateKey || `${currentMonthKey}-empty-cell-${index}`}
                       className={`min-h-24 rounded-md border p-1.5 sm:min-h-28 sm:p-2 ${
                         cell.isCurrentMonth ? 'border-slate-100 bg-slate-50' : 'border-transparent bg-slate-100/70'
                       } ${isToday ? 'ring-2 ring-amber-400' : ''}`}

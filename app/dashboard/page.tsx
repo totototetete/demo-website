@@ -31,7 +31,6 @@ export default function DashboardPage() {
       }).format(currentMonth),
     [currentMonth, lang],
   );
-  const currentMonthKey = `${currentMonth.getFullYear()}-${currentMonth.getMonth()}`;
 
   const todayKey = toDateKey(new Date());
   const monthEvents = useMemo(
@@ -57,16 +56,18 @@ export default function DashboardPage() {
     return Array.from({ length: 42 }, (_, index) => {
       const day = index - firstWeekday + 1;
       if (day <= 0) {
+        const date = new Date(year, month - 1, daysInPrevMonth + day);
         return {
           dayNumber: daysInPrevMonth + day,
-          dateKey: '',
+          dateKey: toDateKey(date),
           isCurrentMonth: false,
         };
       }
       if (day > daysInMonth) {
+        const date = new Date(year, month + 1, day - daysInMonth);
         return {
           dayNumber: day - daysInMonth,
-          dateKey: '',
+          dateKey: toDateKey(date),
           isCurrentMonth: false,
         };
       }
@@ -157,13 +158,13 @@ export default function DashboardPage() {
                     {weekday}
                   </div>
                 ))}
-                {calendarCells.map((cell, index) => {
-                  const events = cell.dateKey ? monthEvents[cell.dateKey] ?? [] : [];
+                {calendarCells.map((cell) => {
+                  const events = cell.isCurrentMonth ? monthEvents[cell.dateKey] ?? [] : [];
                   const isToday = cell.dateKey === todayKey;
 
                   return (
                     <div
-                      key={cell.dateKey || `${currentMonthKey}-empty-cell-${index}`}
+                      key={cell.dateKey}
                       className={`min-h-24 rounded-md border p-1.5 sm:min-h-28 sm:p-2 ${
                         cell.isCurrentMonth ? 'border-slate-100 bg-slate-50' : 'border-transparent bg-slate-100/70'
                       } ${isToday ? 'ring-2 ring-amber-400' : ''}`}
@@ -174,7 +175,7 @@ export default function DashboardPage() {
                       <div className="mt-1 space-y-1">
                         {events.map((event, eventIndex) => (
                           <span
-                            key={`${cell.dateKey}-${event.type}-${event.title}-${eventIndex}`}
+                            key={`${cell.dateKey}-${eventIndex}`}
                             className={`block truncate rounded px-1.5 py-1 text-[10px] font-bold leading-tight sm:text-[11px] ${
                               event.type === 'tournament'
                                 ? 'bg-blue-100 text-blue-700'

@@ -26,13 +26,17 @@ const PLACEHOLDER_FAN_ITEMS: FanItem[] = [
   },
 ];
 
+async function fetchFanItemsFromCms(_client: unknown): Promise<FanItem[]> {
+  throw new Error('Wix CMS integration is not implemented yet');
+}
+
 export async function getFanItems(): Promise<FanItem[]> {
   try {
     const client = await getWixClient();
     if (!client) {
       throw new Error('Wix client is not configured');
     }
-    return PLACEHOLDER_FAN_ITEMS;
+    return await fetchFanItemsFromCms(client);
   } catch {
     return PLACEHOLDER_FAN_ITEMS;
   }

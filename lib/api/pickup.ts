@@ -33,13 +33,17 @@ const PLACEHOLDER_PICKUP_ITEMS: PickupItem[] = [
   },
 ];
 
+async function fetchPickupItemsFromCms(_client: unknown): Promise<PickupItem[]> {
+  throw new Error('Wix CMS integration is not implemented yet');
+}
+
 export async function getPickupItems(): Promise<PickupItem[]> {
   try {
     const client = await getWixClient();
     if (!client) {
       throw new Error('Wix client is not configured');
     }
-    return PLACEHOLDER_PICKUP_ITEMS;
+    return await fetchPickupItemsFromCms(client);
   } catch {
     return PLACEHOLDER_PICKUP_ITEMS;
   }

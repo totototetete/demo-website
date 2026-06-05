@@ -22,13 +22,17 @@ const PLACEHOLDER_HERO_SLIDES: HeroSlide[] = [
   },
 ];
 
+async function fetchHeroSlidesFromCms(_client: unknown): Promise<HeroSlide[]> {
+  throw new Error('Wix CMS integration is not implemented yet');
+}
+
 export async function getHeroSlides(): Promise<HeroSlide[]> {
   try {
     const client = await getWixClient();
     if (!client) {
       throw new Error('Wix client is not configured');
     }
-    return PLACEHOLDER_HERO_SLIDES;
+    return await fetchHeroSlidesFromCms(client);
   } catch {
     return PLACEHOLDER_HERO_SLIDES;
   }

@@ -32,13 +32,17 @@ const PLACEHOLDER_MOVIES: MovieItem[] = [
   },
 ];
 
+async function fetchMoviesFromCms(_client: unknown): Promise<MovieItem[]> {
+  throw new Error('Wix CMS integration is not implemented yet');
+}
+
 export async function getMovies(): Promise<MovieItem[]> {
   try {
     const client = await getWixClient();
     if (!client) {
       throw new Error('Wix client is not configured');
     }
-    return PLACEHOLDER_MOVIES;
+    return await fetchMoviesFromCms(client);
   } catch {
     return PLACEHOLDER_MOVIES;
   }

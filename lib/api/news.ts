@@ -41,13 +41,17 @@ const PLACEHOLDER_NEWS_ITEMS: NewsItem[] = [
   },
 ];
 
+async function fetchNewsItemsFromCms(_client: unknown): Promise<NewsItem[]> {
+  throw new Error('Wix CMS integration is not implemented yet');
+}
+
 export async function getNewsItems(): Promise<NewsItem[]> {
   try {
     const client = await getWixClient();
     if (!client) {
       throw new Error('Wix client is not configured');
     }
-    return PLACEHOLDER_NEWS_ITEMS;
+    return await fetchNewsItemsFromCms(client);
   } catch {
     return PLACEHOLDER_NEWS_ITEMS;
   }

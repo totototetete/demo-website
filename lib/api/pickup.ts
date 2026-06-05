@@ -5,28 +5,28 @@ import type { PickupItem } from '@/lib/api/types';
 const PLACEHOLDER_PICKUP_ITEMS: PickupItem[] = [
   {
     id: 1,
-    title: { ja: 'ピックアップ', en: 'ピックアップ' },
+    title: { ja: 'ピックアップ', en: 'Pickup' },
     label: 'PICKUP',
     href: ROUTES.matching,
     imageUrl: '/images/placeholder.jpg',
   },
   {
     id: 2,
-    title: { ja: 'ピックアップ', en: 'ピックアップ' },
+    title: { ja: 'ピックアップ', en: 'Pickup' },
     label: 'PICKUP',
     href: ROUTES.rules,
     imageUrl: '/images/placeholder.jpg',
   },
   {
     id: 3,
-    title: { ja: 'ピックアップ', en: 'ピックアップ' },
+    title: { ja: 'ピックアップ', en: 'Pickup' },
     label: 'PICKUP',
     href: ROUTES.dashboard,
     imageUrl: '/images/placeholder.jpg',
   },
   {
     id: 4,
-    title: { ja: 'ピックアップ', en: 'ピックアップ' },
+    title: { ja: 'ピックアップ', en: 'Pickup' },
     label: 'PICKUP',
     href: ROUTES.support,
     imageUrl: '/images/placeholder.jpg',

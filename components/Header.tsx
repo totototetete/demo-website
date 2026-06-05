@@ -61,7 +61,7 @@ export default function Header() {
             className="cursor-pointer"
             role="button"
             tabIndex={0}
-            aria-label="ホームへ戻る"
+            aria-label={lang === 'ja' ? 'ホームへ戻る' : 'Go to home'}
             onClick={() => router.push(ROUTES.home)}
             onKeyDown={(e) => e.key === 'Enter' && router.push(ROUTES.home)}
           >
@@ -94,7 +94,7 @@ export default function Header() {
           {/* 検索ボタン */}
           <button
             className="flex flex-col items-center gap-0.5 hover:text-amber-400 transition-colors"
-            aria-label="検索"
+            aria-label={lang === 'ja' ? '検索' : 'Search'}
           >
             <Search size={18} aria-hidden="true" />
             <span className="text-[10px] font-bold tracking-tight">SEARCH</span>
@@ -140,7 +140,11 @@ export default function Header() {
           <button
             onClick={toggleMenu}
             className="ml-2 rounded-full bg-amber-500 p-2 text-white md:hidden"
-            aria-label={isMenuOpen ? 'メニューを閉じる' : 'メニューを開く'}
+            aria-label={
+              lang === 'ja'
+                ? isMenuOpen ? 'メニューを閉じる' : 'メニューを開く'
+                : isMenuOpen ? 'Close menu' : 'Open menu'
+            }
             aria-expanded={isMenuOpen}
           >
             {isMenuOpen ? <X size={20} aria-hidden="true" /> : <Menu size={20} aria-hidden="true" />}
@@ -149,7 +153,10 @@ export default function Header() {
       </div>
 
       {/* デスクトップナビゲーション */}
-      <nav className="hidden border-t border-blue-800 bg-[#001f42] md:block text-white" aria-label="メインナビゲーション">
+      <nav
+        className="hidden border-t border-blue-800 bg-[#001f42] md:block text-white"
+        aria-label={lang === 'ja' ? 'メインナビゲーション' : 'Main navigation'}
+      >
         <ul className="mx-auto flex max-w-7xl justify-between px-4">
           {navItems.map((item, i) => (
             <li key={i} className="group relative flex-1 border-r border-blue-800 last:border-r-0">
@@ -169,7 +176,7 @@ export default function Header() {
       {isMenuOpen && (
         <nav
           className="border-t border-blue-800 bg-[#001f42] md:hidden"
-          aria-label="モバイルナビゲーション"
+          aria-label={lang === 'ja' ? 'モバイルナビゲーション' : 'Mobile navigation'}
         >
           <ul className="py-2">
             {navItems.map((item, i) => (

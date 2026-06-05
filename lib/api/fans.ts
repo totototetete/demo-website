@@ -5,22 +5,22 @@ import type { FanItem } from '@/lib/api/types';
 const PLACEHOLDER_FAN_ITEMS: FanItem[] = [
   {
     id: 1,
-    label: { ja: 'イベント名', en: 'イベント名' },
-    desc: { ja: 'ニュースサブタイトル', en: 'ニュースサブタイトル' },
+    label: { ja: 'イベント名', en: 'Event title' },
+    desc: { ja: 'ニュースサブタイトル', en: 'News subtitle' },
     href: ROUTES.alumni,
     imageUrl: '/images/placeholder.jpg',
   },
   {
     id: 2,
-    label: { ja: 'イベント名', en: 'イベント名' },
-    desc: { ja: 'ニュースサブタイトル', en: 'ニュースサブタイトル' },
+    label: { ja: 'イベント名', en: 'Event title' },
+    desc: { ja: 'ニュースサブタイトル', en: 'News subtitle' },
     href: ROUTES.alumni,
     imageUrl: '/images/placeholder.jpg',
   },
   {
     id: 3,
-    label: { ja: 'イベント名', en: 'イベント名' },
-    desc: { ja: 'ニュースサブタイトル', en: 'ニュースサブタイトル' },
+    label: { ja: 'イベント名', en: 'Event title' },
+    desc: { ja: 'ニュースサブタイトル', en: 'News subtitle' },
     href: ROUTES.alumni,
     imageUrl: '/images/placeholder.jpg',
   },

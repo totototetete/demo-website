@@ -31,7 +31,7 @@ export default function MovieSection() {
   return (
     <section
       className="bg-[#002b5b] py-16 text-white overflow-hidden"
-      aria-label="動画セクション"
+      aria-label={lang === 'ja' ? '動画セクション' : 'Movie section'}
     >
       <div className="mx-auto max-w-7xl px-4">
         {/* セクションタイトル */}
@@ -70,7 +70,7 @@ export default function MovieSection() {
           {/* 動画リスト */}
           <div
             className="flex flex-col gap-4 overflow-y-auto max-h-[450px] pr-2"
-            aria-label="動画リスト"
+            aria-label={lang === 'ja' ? '動画リスト' : 'Movie list'}
           >
             {sideMovies.map((m) => (
               <div

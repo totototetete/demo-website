@@ -26,7 +26,10 @@ export default function FansSection() {
   }, []);
 
   return (
-    <section className="bg-white py-16" aria-label="OB・OG・サポーターの方へ">
+    <section
+      className="bg-white py-16"
+      aria-label={lang === 'ja' ? 'OB・OG・サポーターの方へ' : 'For alumni and supporters'}
+    >
       <div className="mx-auto max-w-7xl px-4">
         {/* セクションタイトル */}
         <div className="mb-10 text-center flex flex-col items-center">

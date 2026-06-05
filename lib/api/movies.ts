@@ -4,28 +4,28 @@ import type { MovieItem } from '@/lib/api/types';
 const PLACEHOLDER_MOVIES: MovieItem[] = [
   {
     id: 1,
-    title: { ja: 'イベント名', en: 'イベント名' },
+    title: { ja: 'イベント名', en: 'Event title' },
     time: '05:00',
     thumbnailUrl: '/images/placeholder.jpg',
     videoUrl: '#',
   },
   {
     id: 2,
-    title: { ja: 'イベント名', en: 'イベント名' },
+    title: { ja: 'イベント名', en: 'Event title' },
     time: '05:00',
     thumbnailUrl: '/images/placeholder.jpg',
     videoUrl: '#',
   },
   {
     id: 3,
-    title: { ja: 'イベント名', en: 'イベント名' },
+    title: { ja: 'イベント名', en: 'Event title' },
     time: '05:00',
     thumbnailUrl: '/images/placeholder.jpg',
     videoUrl: '#',
   },
   {
     id: 4,
-    title: { ja: 'イベント名', en: 'イベント名' },
+    title: { ja: 'イベント名', en: 'Event title' },
     time: '05:00',
     thumbnailUrl: '/images/placeholder.jpg',
     videoUrl: '#',

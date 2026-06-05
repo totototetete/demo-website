@@ -22,7 +22,7 @@ export default function DebatersSection() {
   const items = DEBATER_CARDS[lang];
 
   return (
-    <section className="bg-slate-50 py-16" aria-label="ディベーターの方へ">
+    <section className="bg-slate-50 py-16" aria-label={lang === 'ja' ? 'ディベーターの方へ' : 'For debaters'}>
       <div className="mx-auto max-w-7xl px-4">
         {/* セクションタイトル */}
         <div className="mb-10 text-center flex flex-col items-center">

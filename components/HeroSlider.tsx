@@ -130,7 +130,10 @@ export default function HeroSlider() {
     : '0.5rem';
 
   return (
-    <section className="relative w-full bg-slate-900 overflow-hidden" aria-label="ヒーローセクション">
+    <section
+      className="relative w-full bg-slate-900 overflow-hidden"
+      aria-label={lang === 'ja' ? 'ヒーローセクション' : 'Hero section'}
+    >
       <div className="relative">
         {/* スライドトラック */}
         <div
@@ -204,7 +207,7 @@ export default function HeroSlider() {
           onClick={prevSlide}
           className="absolute top-1/2 -translate-y-1/2 z-10 bg-white/20 hover:bg-white/40 backdrop-blur-sm rounded-full p-2 md:p-3 transition-all"
           style={{ left: prevButtonLeft }}
-          aria-label="前のスライド"
+          aria-label={lang === 'ja' ? '前のスライド' : 'Previous slide'}
         >
           <ChevronLeft size={24} className="text-white" aria-hidden="true" />
         </button>
@@ -214,7 +217,7 @@ export default function HeroSlider() {
           onClick={nextSlide}
           className="absolute top-1/2 -translate-y-1/2 z-10 bg-white/20 hover:bg-white/40 backdrop-blur-sm rounded-full p-2 md:p-3 transition-all"
           style={{ right: nextButtonRight }}
-          aria-label="次のスライド"
+          aria-label={lang === 'ja' ? '次のスライド' : 'Next slide'}
         >
           <ChevronRight size={24} className="text-white" aria-hidden="true" />
         </button>
@@ -223,7 +226,7 @@ export default function HeroSlider() {
         <div
           className="absolute bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 z-10 flex gap-2"
           role="tablist"
-          aria-label="スライド選択"
+          aria-label={lang === 'ja' ? 'スライド選択' : 'Slide selection'}
         >
           {slides.map((_, index) => (
             <button
@@ -236,7 +239,7 @@ export default function HeroSlider() {
               }`}
               role="tab"
               aria-selected={index === currentSlide}
-              aria-label={`スライド${index + 1}へ移動`}
+              aria-label={lang === 'ja' ? `スライド${index + 1}へ移動` : `Go to slide ${index + 1}`}
             />
           ))}
         </div>

@@ -13,10 +13,13 @@ const icons = [
 
 // 初心者向けセクションコンポーネント
 export default function BeginnersSection() {
-  const { t } = useLanguage();
+  const { lang, t } = useLanguage();
 
   return (
-    <section className="bg-white py-16 border-t border-slate-200" aria-label="はじめての方へ">
+    <section
+      className="bg-white py-16 border-t border-slate-200"
+      aria-label={lang === 'ja' ? 'はじめての方へ' : 'For beginners'}
+    >
       <div className="mx-auto max-w-7xl px-4">
         {/* セクションタイトル */}
         <div className="mb-10 text-center flex flex-col items-center">

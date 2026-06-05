@@ -5,20 +5,20 @@ const PLACEHOLDER_HERO_SLIDES: HeroSlide[] = [
   {
     id: 1,
     image: { ja: '/images/placeholder.jpg', en: '/images/placeholder.jpg' },
-    title: { ja: 'お知らせタイトル', en: 'お知らせタイトル' },
-    subtitle: { ja: 'ニュースサブタイトル', en: 'ニュースサブタイトル' },
+    title: { ja: 'お知らせタイトル', en: 'Announcement Title' },
+    subtitle: { ja: 'ニュースサブタイトル', en: 'News subtitle' },
   },
   {
     id: 2,
     image: { ja: '/images/placeholder.jpg', en: '/images/placeholder.jpg' },
-    title: { ja: 'お知らせタイトル', en: 'お知らせタイトル' },
-    subtitle: { ja: 'ニュースサブタイトル', en: 'ニュースサブタイトル' },
+    title: { ja: 'お知らせタイトル', en: 'Announcement Title' },
+    subtitle: { ja: 'ニュースサブタイトル', en: 'News subtitle' },
   },
   {
     id: 3,
     image: { ja: '/images/placeholder.jpg', en: '/images/placeholder.jpg' },
-    title: { ja: 'お知らせタイトル', en: 'お知らせタイトル' },
-    subtitle: { ja: 'ニュースサブタイトル', en: 'ニュースサブタイトル' },
+    title: { ja: 'お知らせタイトル', en: 'Announcement Title' },
+    subtitle: { ja: 'ニュースサブタイトル', en: 'News subtitle' },
   },
 ];
 

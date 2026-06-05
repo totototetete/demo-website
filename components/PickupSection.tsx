@@ -25,7 +25,7 @@ export default function PickupSection() {
   }, []);
 
   return (
-    <section className="bg-[#002b5b] py-12" aria-label="ピックアップ">
+    <section className="bg-[#002b5b] py-12" aria-label={lang === 'ja' ? 'ピックアップ' : 'Pickup'}>
       <div className="mx-auto max-w-7xl px-4">
         {/* セクションタイトル */}
         <div className="mb-8 flex items-center gap-3">

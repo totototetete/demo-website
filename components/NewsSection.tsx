@@ -39,7 +39,7 @@ export default function NewsSection() {
   }, [activeTabIndex, activeTab, lang, newsItems]);
 
   return (
-    <section className="py-12" aria-label="ニュース">
+    <section className="py-12" aria-label={lang === 'ja' ? 'ニュース' : 'News'}>
       <div className="mx-auto max-w-7xl px-4">
         {/* セクションタイトル */}
         <div className="mb-8 flex items-center gap-3">
@@ -51,7 +51,11 @@ export default function NewsSection() {
 
         {/* カテゴリタブ */}
         <div className="mb-8 border-b border-gray-200 overflow-x-auto">
-          <ul className="flex gap-4 pb-px min-w-max" role="tablist" aria-label="ニュースカテゴリ">
+          <ul
+            className="flex gap-4 pb-px min-w-max"
+            role="tablist"
+            aria-label={lang === 'ja' ? 'ニュースカテゴリ' : 'News categories'}
+          >
             {t.newsCats.map((cat, index) => (
               <li key={cat} role="presentation">
                 <button

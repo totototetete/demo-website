@@ -12,7 +12,7 @@ import Footer from '@/components/Footer';
 // ローディングフォールバックコンポーネント
 function SectionLoader() {
   return (
-    <div className="flex items-center justify-center py-16" aria-label="読み込み中">
+    <div className="flex items-center justify-center py-16" aria-label="Loading / 読み込み中">
       <div className="h-8 w-8 animate-spin rounded-full border-4 border-amber-500 border-t-transparent" />
     </div>
   );

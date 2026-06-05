@@ -20,7 +20,7 @@ const XLogo = ({ size = 20 }: { size?: number }) => (
 
 // フッターコンポーネント
 export default function Footer() {
-  const { t } = useLanguage();
+  const { lang, t } = useLanguage();
 
   return (
     <footer className="bg-slate-100 py-16 border-t border-slate-200">
@@ -70,7 +70,7 @@ export default function Footer() {
         {/* フッターナビゲーション */}
         <nav
           className="mb-8 flex flex-wrap justify-center gap-x-8 gap-y-2 text-xs font-bold text-slate-500 uppercase tracking-widest"
-          aria-label="フッターナビゲーション"
+          aria-label={lang === 'ja' ? 'フッターナビゲーション' : 'Footer navigation'}
         >
           <a href={ROUTES.beginners} className="hover:text-blue-800 transition-colors">
             {t.nav.beginners}

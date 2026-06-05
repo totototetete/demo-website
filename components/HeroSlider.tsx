@@ -4,70 +4,8 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { ChevronRight, ChevronLeft } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
-
-interface HeroSlide {
-  id: number;
-  image: {
-    ja: string;
-    en: string;
-  };
-  title: {
-    ja: string;
-    en: string;
-  };
-  subtitle: {
-    ja: string;
-    en: string;
-  };
-}
-
-const HERO_SLIDES: HeroSlide[] = [
-  {
-    id: 1,
-    image: {
-      ja: '/images/hero-1-ja.jpg',
-      en: '/images/hero-1-en.jpg',
-    },
-    title: {
-      ja: '全国の高校英語ディベーターをつなぐ',
-      en: 'Connecting High School Debaters Nationwide',
-    },
-    subtitle: {
-      ja: 'HEnDA Friendsへようこそ',
-      en: 'Welcome to HEnDA Friends',
-    },
-  },
-  {
-    id: 2,
-    image: {
-      ja: '/images/hero-2-ja.jpg',
-      en: '/images/hero-2-en.jpg',
-    },
-    title: {
-      ja: 'ディベート仲間を見つけよう',
-      en: 'Find Your Debate Partner',
-    },
-    subtitle: {
-      ja: 'マッチング機能で全国の仲間とつながる',
-      en: 'Connect with debaters across the country',
-    },
-  },
-  {
-    id: 3,
-    image: {
-      ja: '/images/hero-3-ja.jpg',
-      en: '/images/hero-3-en.jpg',
-    },
-    title: {
-      ja: 'イベント情報をチェック',
-      en: 'Check Event Information',
-    },
-    subtitle: {
-      ja: '大会・練習会・セミナー情報を随時更新',
-      en: 'Tournament, practice, and seminar updates',
-    },
-  },
-];
+import { getHeroSlides } from '@/lib/api/hero';
+import type { HeroSlide } from '@/lib/api/types';
 
 const PLACEHOLDER_IMAGE = '/images/placeholder.jpg';
 
@@ -89,12 +27,29 @@ const PEEK_THRESHOLD_PX = Math.ceil(MAX_HERO_WIDTH_PX * 1.4);
 // ヒーロースライダーコンポーネント
 export default function HeroSlider() {
   const { lang } = useLanguage();
+  const [slides, setSlides] = useState<HeroSlide[]>([]);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [imageErrors, setImageErrors] = useState<Record<number, boolean>>({});
   const [autoPlayKey, setAutoPlayKey] = useState(0);
   // peekMode: ビューポート幅 >= PEEK_THRESHOLD_PX のとき true
   // SSR との不一致を避けるため初期値は false（非ピーク表示）
   const [peekMode, setPeekMode] = useState(false);
+
+  useEffect(() => {
+    let isMounted = true;
+    const load = async () => {
+      const data = await getHeroSlides();
+      if (isMounted) {
+        setSlides(data);
+        setCurrentSlide((prev) => (data.length > 0 ? Math.min(prev, data.length - 1) : 0));
+      }
+    };
+    void load();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   useEffect(() => {
     const mql = window.matchMedia(`(min-width: ${PEEK_THRESHOLD_PX}px)`);
@@ -106,19 +61,28 @@ export default function HeroSlider() {
 
   // 自動スライド（手動操作後にタイマーをリセット）
   useEffect(() => {
+    if (slides.length <= 1) {
+      return;
+    }
     const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
     }, 5000);
     return () => clearInterval(timer);
-  }, [autoPlayKey]);
+  }, [autoPlayKey, slides.length]);
 
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
+    if (slides.length === 0) {
+      return;
+    }
+    setCurrentSlide((prev) => (prev + 1) % slides.length);
     setAutoPlayKey((prev) => prev + 1);
   };
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + HERO_SLIDES.length) % HERO_SLIDES.length);
+    if (slides.length === 0) {
+      return;
+    }
+    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
     setAutoPlayKey((prev) => prev + 1);
   };
 
@@ -166,7 +130,10 @@ export default function HeroSlider() {
     : '0.5rem';
 
   return (
-    <section className="relative w-full bg-slate-900 overflow-hidden" aria-label="ヒーローセクション">
+    <section
+      className="relative w-full bg-slate-900 overflow-hidden"
+      aria-label={lang === 'ja' ? 'ヒーローセクション' : 'Hero section'}
+    >
       <div className="relative">
         {/* スライドトラック */}
         <div
@@ -178,7 +145,7 @@ export default function HeroSlider() {
           role="region"
           aria-live="polite"
         >
-          {HERO_SLIDES.map((slide, index) => (
+          {slides.map((slide, index) => (
             <div
               key={slide.id}
               className="flex-shrink-0 flex justify-center"
@@ -240,7 +207,7 @@ export default function HeroSlider() {
           onClick={prevSlide}
           className="absolute top-1/2 -translate-y-1/2 z-10 bg-white/20 hover:bg-white/40 backdrop-blur-sm rounded-full p-2 md:p-3 transition-all"
           style={{ left: prevButtonLeft }}
-          aria-label="前のスライド"
+          aria-label={lang === 'ja' ? '前のスライド' : 'Previous slide'}
         >
           <ChevronLeft size={24} className="text-white" aria-hidden="true" />
         </button>
@@ -250,7 +217,7 @@ export default function HeroSlider() {
           onClick={nextSlide}
           className="absolute top-1/2 -translate-y-1/2 z-10 bg-white/20 hover:bg-white/40 backdrop-blur-sm rounded-full p-2 md:p-3 transition-all"
           style={{ right: nextButtonRight }}
-          aria-label="次のスライド"
+          aria-label={lang === 'ja' ? '次のスライド' : 'Next slide'}
         >
           <ChevronRight size={24} className="text-white" aria-hidden="true" />
         </button>
@@ -259,9 +226,9 @@ export default function HeroSlider() {
         <div
           className="absolute bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 z-10 flex gap-2"
           role="tablist"
-          aria-label="スライド選択"
+          aria-label={lang === 'ja' ? 'スライド選択' : 'Slide selection'}
         >
-          {HERO_SLIDES.map((_, index) => (
+          {slides.map((_, index) => (
             <button
               key={index}
               onClick={() => { setCurrentSlide(index); setAutoPlayKey((prev) => prev + 1); }}
@@ -272,7 +239,7 @@ export default function HeroSlider() {
               }`}
               role="tab"
               aria-selected={index === currentSlide}
-              aria-label={`スライド${index + 1}へ移動`}
+              aria-label={lang === 'ja' ? `スライド${index + 1}へ移動` : `Go to slide ${index + 1}`}
             />
           ))}
         </div>

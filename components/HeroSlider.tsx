@@ -4,70 +4,8 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { ChevronRight, ChevronLeft } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
-
-interface HeroSlide {
-  id: number;
-  image: {
-    ja: string;
-    en: string;
-  };
-  title: {
-    ja: string;
-    en: string;
-  };
-  subtitle: {
-    ja: string;
-    en: string;
-  };
-}
-
-const HERO_SLIDES: HeroSlide[] = [
-  {
-    id: 1,
-    image: {
-      ja: '/images/hero-1-ja.jpg',
-      en: '/images/hero-1-en.jpg',
-    },
-    title: {
-      ja: '全国の高校英語ディベーターをつなぐ',
-      en: 'Connecting High School Debaters Nationwide',
-    },
-    subtitle: {
-      ja: 'HEnDA Friendsへようこそ',
-      en: 'Welcome to HEnDA Friends',
-    },
-  },
-  {
-    id: 2,
-    image: {
-      ja: '/images/hero-2-ja.jpg',
-      en: '/images/hero-2-en.jpg',
-    },
-    title: {
-      ja: 'ディベート仲間を見つけよう',
-      en: 'Find Your Debate Partner',
-    },
-    subtitle: {
-      ja: 'マッチング機能で全国の仲間とつながる',
-      en: 'Connect with debaters across the country',
-    },
-  },
-  {
-    id: 3,
-    image: {
-      ja: '/images/hero-3-ja.jpg',
-      en: '/images/hero-3-en.jpg',
-    },
-    title: {
-      ja: 'イベント情報をチェック',
-      en: 'Check Event Information',
-    },
-    subtitle: {
-      ja: '大会・練習会・セミナー情報を随時更新',
-      en: 'Tournament, practice, and seminar updates',
-    },
-  },
-];
+import { getHeroSlides } from '@/lib/api/hero';
+import type { HeroSlide } from '@/lib/api/types';
 
 const PLACEHOLDER_IMAGE = '/images/placeholder.jpg';
 
@@ -89,12 +27,29 @@ const PEEK_THRESHOLD_PX = Math.ceil(MAX_HERO_WIDTH_PX * 1.4);
 // ヒーロースライダーコンポーネント
 export default function HeroSlider() {
   const { lang } = useLanguage();
+  const [slides, setSlides] = useState<HeroSlide[]>([]);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [imageErrors, setImageErrors] = useState<Record<number, boolean>>({});
   const [autoPlayKey, setAutoPlayKey] = useState(0);
   // peekMode: ビューポート幅 >= PEEK_THRESHOLD_PX のとき true
   // SSR との不一致を避けるため初期値は false（非ピーク表示）
   const [peekMode, setPeekMode] = useState(false);
+
+  useEffect(() => {
+    let isMounted = true;
+    const load = async () => {
+      const data = await getHeroSlides();
+      if (isMounted) {
+        setSlides(data);
+        setCurrentSlide((prev) => (data.length > 0 ? Math.min(prev, data.length - 1) : 0));
+      }
+    };
+    void load();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   useEffect(() => {
     const mql = window.matchMedia(`(min-width: ${PEEK_THRESHOLD_PX}px)`);
@@ -106,19 +61,28 @@ export default function HeroSlider() {
 
   // 自動スライド（手動操作後にタイマーをリセット）
   useEffect(() => {
+    if (slides.length <= 1) {
+      return;
+    }
     const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
     }, 5000);
     return () => clearInterval(timer);
-  }, [autoPlayKey]);
+  }, [autoPlayKey, slides.length]);
 
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
+    if (slides.length === 0) {
+      return;
+    }
+    setCurrentSlide((prev) => (prev + 1) % slides.length);
     setAutoPlayKey((prev) => prev + 1);
   };
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + HERO_SLIDES.length) % HERO_SLIDES.length);
+    if (slides.length === 0) {
+      return;
+    }
+    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
     setAutoPlayKey((prev) => prev + 1);
   };
 
@@ -178,7 +142,7 @@ export default function HeroSlider() {
           role="region"
           aria-live="polite"
         >
-          {HERO_SLIDES.map((slide, index) => (
+          {slides.map((slide, index) => (
             <div
               key={slide.id}
               className="flex-shrink-0 flex justify-center"
@@ -261,7 +225,7 @@ export default function HeroSlider() {
           role="tablist"
           aria-label="スライド選択"
         >
-          {HERO_SLIDES.map((_, index) => (
+          {slides.map((_, index) => (
             <button
               key={index}
               onClick={() => { setCurrentSlide(index); setAutoPlayKey((prev) => prev + 1); }}

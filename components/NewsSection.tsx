@@ -1,15 +1,30 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
-import { NEWS_DATA } from '@/lib/constants/newsData';
-import { ROUTES } from '@/lib/routes';
+import { getNewsItems } from '@/lib/api/news';
+import type { NewsItem } from '@/lib/api/types';
 
 // ニュースセクションコンポーネント（フィルタリング機能付き）
 export default function NewsSection() {
   const { lang, t } = useLanguage();
+  const [newsItems, setNewsItems] = useState<NewsItem[]>([]);
   // 言語に依存しないインデックスでタブを管理（言語切り替え時の不整合を防ぐ）
   const [activeTabIndex, setActiveTabIndex] = useState<number>(0);
+
+  useEffect(() => {
+    let isMounted = true;
+    const load = async () => {
+      const data = await getNewsItems();
+      if (isMounted) {
+        setNewsItems(data);
+      }
+    };
+    void load();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   // 現在のアクティブカテゴリ名（言語に対応）
   const activeTab = t.newsCats[activeTabIndex] ?? t.newsCats[0];
@@ -18,10 +33,10 @@ export default function NewsSection() {
   const filteredNews = useMemo(() => {
     // インデックス0は「すべて/All」（全件表示）
     if (activeTabIndex === 0) {
-      return NEWS_DATA;
+      return newsItems;
     }
-    return NEWS_DATA.filter((news) => news.category[lang] === activeTab);
-  }, [activeTabIndex, activeTab, lang]);
+    return newsItems.filter((news) => news.category[lang] === activeTab);
+  }, [activeTabIndex, activeTab, lang, newsItems]);
 
   return (
     <section className="py-12" aria-label="ニュース">
@@ -62,7 +77,7 @@ export default function NewsSection() {
             filteredNews.map((news) => (
               <a
                 key={news.id}
-                href={ROUTES.news}
+                href={news.href}
                 className="group bg-white p-3 shadow-sm hover:shadow-md transition-shadow"
                 aria-label={news.title[lang]}
               >
